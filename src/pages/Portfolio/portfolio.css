@@ -1,74 +1,106 @@
 
 
 
+.section {
+    background: linear-gradient(135deg, #8699bc 0%, #e5e9ef 100%);
+    padding: 60px 0;
+    margin-left: 0.5px !important;
 
+  }
 
 .customTabs .customTabs_item{
-    padding: 0 !important;
-    min-width: 0 !important;
-    margin-right: 20px !important;
-    text-transform: inherit !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    /* margin-top: 20px; */
-    /* padding-top: -40px; */
+ padding: 10px 20px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  /* background-color: ; */
+  transition: color 0.5s ease;  
+  margin-bottom: 20px;  
     
 }
+.customTabs .customTabs_item:hover {
+    color: black !important;
+  }
 
-.customTabs .active {
-    color: var(--main-color) !important;
-  
-}
+  .customTabs .active {
+    color: white !important;
+    background-color: var(--main-color);
 
+    border-bottom: 3px solid var(--main-color);
+  }
 
 
 .customCard {
     height: 100%;
     min-width: 350px;
     max-width: 350px;
-    /* box-shadow: 0px 0px 48px 0px rgba(4, 6, 4, 0.48) !important; */
-    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     overflow: hidden;
-    /* height: ; */
-    /* padding: 40px; */
-}
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .customCard:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.9);
+  }
 
 
 
 
 
 .customCard .customCard_image {
-    /* height: 120px; */
     
-    object-fit: cover !important;
+    object-fit:fill !important;
     border-radius: 20px ;
     padding: 10px;
+    position: relative;
 
 }
 
+
+
+  .customCard_image::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+  }
+
+  
 
 .customCard .customCard_title {
-    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 20px;
+    font-weight: 700 !important;
     color: white;
-    padding: 15px;
+    margin-bottom:5px;
+    padding: 10px;
 }
+
+  /* .customCard .customCard_caption {
+    font-family: 'Poppins', sans-serif;
+    font-size: 50px;
+    color: rgba(255, 255, 255, 0.8);
+  } */
 
 
 
 
 .customCard .customCard_tag{
-    /* border: 5px solid black !important; */
     background-color: var(--main-color);
-    /* border: 10px;
-     */
-    border-radius: 10px;
-    /* padding: 10px; */
+    border-radius: 8px;
     padding: 5px;
     color: white;
 
 }
 
 .customCard .customCard_tags{
+
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -81,42 +113,74 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
     max-width: 800px;
-    height: 100vh; 
-    overflow-y: auto;  
+    height: auto;
+    max-height: 95vh;
+    overflow-y: auto; 
+    border-radius: 20px;
+    padding: 20px; 
     margin: 0 auto;
 }
 
+
+
 .projectDialog .title{
     font-weight: 600;
-    /* color: white */
+   background-color:#6867D4;
+   color: white;
+   font-size: 24px;
+   font-weight: 700;
+   text-align: center;
+
+
+}
+
+
+
+.projectDialog .digcontent{
+   background-color:#6867D4;
+
 }
 .projectDialog  .projectDialog_image{
     max-height: 300px;
+    background-color: #6867D4;
     width: 100%;
     object-fit: contain;
     object-position: center center !important;
 }
-.projectDialog  .projectDialog_description{
 
+
+
+
+
+.projectDialog  .projectDialog_description{
    margin-top: 10px !important;
 }
+
+
+.projectDialog .projectDialog_description {
+    color: white;
+    font-size: 16px;
+    line-height: 1.6;
+  }
 .projectDialog .projectDialog_actions {
+    background-color:#6867D4;
     justify-content: center !important;
-    margin-bottom: 10px;
+    margin-bottom: 0;
 
 }
 .projectDialog .projectDialog_icon {
-    color: darkslategray;
+    color: black;
     margin: 0px 12px;
     cursor: pointer;
 }
 
 .projectDialog .projectDialog_icon :hover{
-    color: var(--main-color);
+    color: white;
 }
 
 
-.projectDialog_icon > .MuiSvgIcon-root{
-    font-size: 30px !important;
+.projectDialog_icon > svg{
+    font-size: 50px !important;
 }

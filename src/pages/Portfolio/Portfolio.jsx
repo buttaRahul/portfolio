@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import './portfolio.css'
 import { Box, Card, CardActionArea, CardContent, CardMedia, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Grow, Tab, Tabs, Typography } from '@mui/material'
 import resumeData from '../../utils/resumeData'
-import { motion, useMotionValue, useTransform } from "framer-motion";
-
+import { motion, useMotionValue, useTransform , useScroll} from "framer-motion";
 
 
 
 const Portfolio = () => {
   
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], [0, -100]); 
 
   const [tabvalue, setTabValue] = useState('All')
   const [prjDialog, setPrjDialog] = useState(false)
@@ -63,7 +64,7 @@ const Portfolio = () => {
         </Tabs>
       </Grid>
 
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}> */}
         <Grid container gap={7}>
           {resumeData.projects.map((prj) => (
             <Box key={prj.title}>
@@ -116,7 +117,8 @@ const Portfolio = () => {
                                 cardRotateX: prj.cardRotateX,
                                 cardRotateY: prj.cardRotateY,
                               }}
-                              transition={{ velocity: 0 }}
+                              whileHover={{ y: -10 }}
+                              transition={{ type: "spring", stiffness: 300 }}
                             >
 
                               <Typography variant='body2' className='customCard_title'>{prj.title}</Typography>
@@ -149,12 +151,18 @@ const Portfolio = () => {
             </Box>
           ))}
         </Grid>
-      </Grid>
+      {/* </Grid> */}
 
+
+      
+        
+
+
+        
       <Dialog maxWidth={'lg'} fullWidth open={prjDialog} onClose={() => setPrjDialog(false)} className='projectDialog' >
         <DialogTitle className='title' onClose={() => setPrjDialog(false)} >{prjDialog.title}</DialogTitle>
         <img src={prjDialog.image} alt='' className='projectDialog_image' />
-        <DialogContent>
+        <DialogContent className='digcontent'>
           <Typography className='projectDialog_description'>
             {prjDialog.description}
           </Typography>

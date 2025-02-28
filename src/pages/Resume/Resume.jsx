@@ -21,13 +21,13 @@ import { useLocation } from 'react-router-dom'
 const Resume = () => {
 
   // console.log(import.meta.env.VITE_API_KEY)
-  const [name,setName] =  useState("")
-  const [email,setEmail] =  useState("")
-  const [message,setMessage] =  useState("")
-  const [open,setOpen] = useState(false)
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+  const [open, setOpen] = useState(false)
 
-  const [respMessage,setRespMessage] = useState('')
-  const [severity,setSeverity] = useState('success')
+  const [respMessage, setRespMessage] = useState('')
+  const [severity, setSeverity] = useState('success')
 
   const handleClose = (event) => {
     setOpen(false)
@@ -36,25 +36,25 @@ const Resume = () => {
 
   }
 
-  const hadleSendFrom = async () =>{
-    
+  const hadleSendFrom = async () => {
+
     const apiKey = import.meta.env.VITE_API_KEY
 
 
 
-    if(name == ''){
+    if (name == '') {
       setRespMessage("Name Cannot Be Blank")
       setOpen(true)
       setSeverity("error")
       return
     }
-    if(email == ''){
+    if (email == '') {
       setRespMessage("Email Cannot Be Blank")
       setOpen(true)
       setSeverity("error")
       return
     }
-    if(message == ''){
+    if (message == '') {
       setRespMessage("Message Cannot Be Blank")
       setOpen(true)
       setSeverity("error")
@@ -70,25 +70,25 @@ const Resume = () => {
     }
 
     const options = {
-      method : "POST",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
       body: JSON.stringify(body),
-      
+
     }
-    const resp =  await fetch('https://api.web3forms.com/submit', options)
+    const resp = await fetch('https://api.web3forms.com/submit', options)
     const jsonData = await resp.json()
 
 
-    if(resp.status == 200) {
-     setOpen(true)
-     setRespMessage(jsonData.message)
-     setSeverity("success")
-     
+    if (resp.status == 200) {
+      setOpen(true)
+      setRespMessage(jsonData.message)
+      setSeverity("success")
+
     }
-    else{
+    else {
       setRespMessage(jsonData.message)
       setOpen(true)
       setSeverity("error")
@@ -97,7 +97,7 @@ const Resume = () => {
 
 
   const handleNameChange = (e) => {
-      setName(e.target.value)
+    setName(e.target.value)
   }
 
   const handleEmailChange = (e) => {
@@ -106,7 +106,7 @@ const Resume = () => {
   const handleMessageChange = (e) => {
     setMessage(e.target.value)
   }
-  
+
   return (
     <Box>
 
@@ -137,9 +137,14 @@ const Resume = () => {
                     <TimelineContent className='timeline_content'>
                       <Typography className='timeline_title'>{experience.title}</Typography>
                       <Typography variant='caption' className='timeline_date'>{experience.date}</Typography>
-                      <Typography variant='body2' className='timeline_description'>{experience.description}</Typography>
+                      <ul className='timeline_description'>
+                        {experience.description.split('\n').map((point, index) => (
+                          <li key={index}>
+                            <Typography variant='body2'>{point}</Typography>
+                          </li>
+                        ))}
+                      </ul>
                     </TimelineContent>
-
                   </TimelineItem>
                 ))}
               </CustomTimeline>
@@ -172,16 +177,16 @@ const Resume = () => {
           <h6 className='txt'>Skills</h6>
         </Grid>
         <Grid item xs={12}>
-          <Grid container  spacing={3}>
+          <Grid container spacing={3}>
             {
               resumeData.skills.map(skill => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={skill.title} >
-                  <Card  className='skill'  sx={{ "&:hover": { boxShadow: 15 } }} >
+                  <Card className='skill' sx={{ "&:hover": { boxShadow: 15 } }} >
                     <Typography variant='h6' className='skill_title'>
                       {skill.title}
                     </Typography>
                     {skill.description.map(element => (
-                      <Typography  key={element} variant='body2' className='skill_description'>
+                      <Typography key={element} variant='body2' className='skill_description'>
                         <TimelineDot variant='outlined' className='timeline_dot' />
                         {element}
                       </Typography>
@@ -195,10 +200,10 @@ const Resume = () => {
 
       </Grid>
 
-      <Grid container spacing={6} className='section pt_45 pb_45'>
+      <Grid container spacing={6} className='section contactbar pt_45 pb_45'>
 
         <Grid item xs={12} lg={7}>
-          <Grid container id = 'contact'>
+          <Grid container id='contact'>
             <Grid item className='section_title mb_30'>
               <span></span>
               <h6 className='txt'>Contact Me</h6>
@@ -207,16 +212,16 @@ const Resume = () => {
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
-                  <TextField fullWidth name='name' label='Name'  onChange={handleNameChange}/>
+                  <TextField fullWidth name='name' label='Name' onChange={handleNameChange} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField fullWidth name='email' label='E-mail' onChange={handleEmailChange}/>
+                  <TextField fullWidth name='email' label='E-mail' onChange={handleEmailChange} />
                 </Grid>
                 <Grid item xs={12} >
                   <TextField fullWidth name='message' label='Message' multiline rows={5} onChange={handleMessageChange} />
                 </Grid>
                 <Grid item xs={12}>
-                  <CustomButton text='Submit' icon={<SendIcon />}  onClick={hadleSendFrom}/>
+                  <CustomButton text='Submit' icon={<SendIcon />} onClick={hadleSendFrom} />
                 </Grid>
               </Grid>
             </Grid>
@@ -231,7 +236,7 @@ const Resume = () => {
             <Grid item xs={12}>
               <Grid container >
                 <Grid item xs={12}>
-                  
+
                   <Typography className='contactInfo_item'>
                     <span>Address: </span> {resumeData.address}.
                   </Typography>
@@ -252,7 +257,7 @@ const Resume = () => {
                     {
                       Object.keys(resumeData.links).map(key => (
                         <Grid item className='contactInfo_link' key={key}>
-                          <a href={resumeData.links[key]}>{resumeData.links[key].icon}</a>
+                          <a href={resumeData.links[key].link}>{resumeData.links[key].icon}</a>
                         </Grid>
                       ))
                     }
@@ -263,12 +268,12 @@ const Resume = () => {
           </Grid>
         </Grid>
       </Grid>
-        
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin= {{ vertical: 'bottom', horizontal: 'right'}} >
-          <MuiAlert onClose={handleClose} severity={severity} variant="filled" sx={{ width: '600px' }}>
-                    {respMessage}
-          </MuiAlert>
-        </Snackbar>
+
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} >
+        <MuiAlert onClose={handleClose} severity={severity} variant="filled" sx={{ width: '600px' }}>
+          {respMessage}
+        </MuiAlert>
+      </Snackbar>
 
     </Box>
   )

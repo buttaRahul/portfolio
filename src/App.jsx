@@ -30,8 +30,8 @@ function App() {
             <Header />
             <Paper className='main-content' elevation={24} >
               <Routes>
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/" element={<Resume />} />
+                <Route path="/" element={<Portfolio />} />
+                <Route path="/resume" element={<Resume />} />
               </Routes>
             </Paper>
 

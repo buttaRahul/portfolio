@@ -16,7 +16,7 @@ const Header = (props) => {
   const pathName = useLocation().pathname;
   const handleClick = () => {
     console.log("Contact Me button clicked");
-    navigateTo('/', { scrollOptions: { behavior: 'smooth', block: 'start' } });
+    navigateTo('/resume', { scrollOptions: { behavior: 'smooth', block: 'start' } });
     setTimeout(() => {
       const contactElement = document.getElementById('contact');
       if (contactElement) {
@@ -36,8 +36,8 @@ const Header = (props) => {
       <Navbar.Toggle/> 
       <Navbar.Collapse>
         <Nav className='header_left'>
-          <Nav.Link as={NavLink} to='/' className = {pathName == "/" ? "header_link_active" : "header_link"}>Resume</Nav.Link>
-          <Nav.Link as={NavLink} to='/portfolio' className = {pathName == "/portfolio" ? "header_link_active" : "header_link"}>Portfolio</Nav.Link>
+          <Nav.Link as={NavLink} to='/' className = {pathName == "/" ? "header_link_active" : "header_link"}>Portfolio</Nav.Link>
+          <Nav.Link as={NavLink} to='/resume' className = {pathName == "/resume" ? "header_link_active" : "header_link"}>Resume</Nav.Link>
         </Nav>
 
         <Box className='header_right'> 
