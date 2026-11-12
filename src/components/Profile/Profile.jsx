@@ -40,8 +40,8 @@ const Profile = () => {
 
   const handleDownloadCv = () => {
     const downloadLink = document.createElement('a');
-    downloadLink.href = 'public/assets/resume/resume_latest_6.pdf';
-    downloadLink.download = 'resume-RahulAditya.pdf';
+    downloadLink.href = '/assets/resume/Rahul_Aditya_Butta_ML_Engineer.pdf';
+    downloadLink.download = 'Rahul_Aditya_Butta_ML_Engineer.pdf';
     downloadLink.click();
   };
 
