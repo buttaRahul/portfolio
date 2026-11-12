@@ -1,0 +1,27 @@
+.contactInfo_item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 14px !important;
+  color: rgb(51, 50, 50);
+  line-height: 34px !important;
+  overflow-wrap: anywhere;
+}
+
+.contactInfo_item > span {
+  color: black;
+  font-weight: 500;
+}
+
+.contactInfo_item > a {
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: var(--main-color);
+  text-underline-offset: 3px;
+}
+
+.contactInfo_item > a:hover,
+.contactInfo_item > a:focus-visible {
+  color: var(--main-color);
+}

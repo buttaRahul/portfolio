@@ -20,11 +20,7 @@ export const projectTabs = [
 export default {
     name: 'Rahul Aditya',
     title: 'Machine Learning Engineer',
-    birthday: '21st October 2002',
     email: 'butta.rahul.aditya@gmail.com',
-    // address: 'SR Nagar Hyderabad'
-    phone: '+91 9505867830',
-    address: 'Attapur, Hyderabad, Telangana, India',
 
 
     links: {
@@ -52,54 +48,6 @@ export default {
     },
 
     about: "I am a passionate developer with a strong curiosity for Machine Learning and web development. I take pride in building innovative projects and continuously expanding my skill set. I enjoy solving challenges by creating simple and elegant solutions.",
-    experiences: [
-        {
-            title: 'Machine Learning Engineer Intern - Videoverse',
-            date: '08/2024 - present',
-            description: "Developed an unsupervised learning pipeline to detect events from video data, leveraging video masked encoder models. \n Created a robust client and REST framework server to deploy and perform inference on a trained Visual Language Model (VLM), enabling efficient, scalable inference workflows. \nLeveraged DeepSpeed for mixed precision training of video masked encoder models, optimizing memory usage and training speed without compromising accuracy",
-        },
-        {
-            title: 'Data Science Intern - Dronapay',
-            date: '04/2024 - 07/2024',
-            description: "Created a deep learning model to generate JsonLogic rules automatically from natural language, cutting down on manual rule writing time and streamlining the decision-making process.\n Fine-tuned LLM's like LLama, Bert, etc and deployed them into production using AWS serverless architecture.\n Contributed on keystroke analysis based on machine learning, which strengthened system security and helped to reduce fraudulent actions by 30%.",
-        }
-    ],
-
-
-    education: [
-        {
-            title: 'Indian Institute of Information Technology(IIIT), Pune',
-            date: '2020 - 2024',
-            course: 'B.Tech - CSE',
-            grade: 'CGPA : 7.3',
-
-        },
-        {
-            title: 'Rishi Junior College',
-            date: '2018 - 2020',
-            course: '12th Telangana State Board',
-            grade: 'Percentage :95%',
-        },
-    ],
-
-    skills: [
-        {
-            title: 'FRONT-END',
-            description: ["ReactJS", "JavaScript", "TypeScript", "Material UI"]
-        },
-        {
-            title: 'BACK-END',
-            description: ["Python", "Django", "Django Rest Framework", "NodeJS"]
-        },
-        {
-            title: 'ML/DATA SCIENCE',
-            description: ["Tensorflow","Pytorch" ,"SpaCy , NLTK", "OpenCv", "Pandas",]
-        },
-        {
-            title: 'DATABASES',
-            description: ["MySQL", "PostgreSQL"]
-        }
-    ],
 
     // Order matters: open source first, then professional work newest to oldest, then research.
     // links[].type is one of 'github' | 'kaggle' | 'paper'. Professional work has no links.
