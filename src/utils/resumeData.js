@@ -176,7 +176,7 @@ export default {
             label: 'Professional work · Zynix AI',
             role: 'Machine Learning Engineer · Sep 2025 – present',
             tabs: ['classical'],
-            summary: '',
+            summary: 'Predicts 30-day admissions, ER visits and readmissions from Medicare claims so care teams can prioritise outreach.',
             bullets: [
                 '30-day admission, ER and readmission models (XGBoost) on 1.18M member-months: AUROC up to 0.79, 4.5× AUPRC lift on a patient-disjoint holdout',
                 'Capacity-sized thresholds raised 30-day precision 2.4× on an out-of-time fold; weekly outreach flags cut from about 1,600 to 300',
@@ -190,7 +190,7 @@ export default {
             label: 'Professional work · Zynix AI',
             role: 'Machine Learning Engineer · Sep 2025 – present',
             tabs: ['llm', 'systems'],
-            summary: '',
+            summary: 'A Qwen3-4B model fine-tuned with LoRA on longitudinal claims data, and the multi-GPU training stack behind it.',
             bullets: [
                 'Data-parallel LoRA trainer for Qwen3-4B on 4× L40S and 4× RTX 4090 nodes; fixed a gradient-sync bug that all-reduced only the last micro-batch; tested a 3D-parallel configuration for scale-up',
                 'Held-out claims perplexity 1.79 → 1.33',
@@ -204,7 +204,7 @@ export default {
             label: 'Professional work · Zynix AI',
             role: 'Machine Learning Engineer · Sep 2025 – present',
             tabs: ['llm', 'speech'],
-            summary: '',
+            summary: 'An in-house calling agent whose per-client call flows are assembled from configuration.',
             bullets: [
                 'Modular LangGraph calling-agent architecture: per-client call flows from YAML config, graph-agnostic LLM service, plug-in memory extractors',
                 'Streaming speech enhancement (RNNoise, then fine-tuned DeepFilterNet) and two-stage voicemail detection',
@@ -283,7 +283,7 @@ export default {
             label: 'Professional work · VideoVerse',
             role: 'ML Engineering Intern · Aug – Nov 2024',
             tabs: ['vision'],
-            summary: '',
+            summary: 'Detects key events in live cricket streams as part of a production video-AI ensemble.',
             bullets: [
                 'Fine-tuned VideoMAE in a production ensemble with VLMs serving Disney+ Hotstar and other streaming platforms; about 74% precision on its 2 priority event classes',
                 "Handled rare-event class imbalance (weighted loss, downsampling); DeepSpeed mixed-precision fine-tuning; large-scale video processing with Ray on H100s; REST inference server for the team's fine-tuned VLM",
