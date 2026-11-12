@@ -19,7 +19,7 @@ export const projectTabs = [
 
 export default {
     name: 'Rahul Aditya',
-    title: 'Machine Learning Engineer',
+    title: 'Machine Learning Engineer — LLMs, NLP, computer vision, speech, classical ML',
     email: 'butta.rahul.aditya@gmail.com',
 
 
@@ -47,7 +47,7 @@ export default {
         }
     },
 
-    about: "I am a passionate developer with a strong curiosity for Machine Learning and web development. I take pride in building innovative projects and continuously expanding my skill set. I enjoy solving challenges by creating simple and elegant solutions.",
+    about: "Machine Learning Engineer working on LLMs, retrieval, speech and classical ML. I build production systems end to end, from fraud detection on healthcare claims to multilingual GraphRAG and on-device voice agents, and write GPU kernels and inference code in my spare time.",
 
     // Order matters: open source first, then professional work newest to oldest, then research.
     // links[].type is one of 'github' | 'kaggle' | 'paper'. Professional work has no links.
