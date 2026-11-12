@@ -2,11 +2,20 @@
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import React from 'react';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { FaKaggle } from "react-icons/fa6";
 import { SiLeetcode } from "react-icons/si";
 
 
+
+export const projectTabs = [
+    { id: 'all', label: 'All' },
+    { id: 'llm', label: 'LLMs & Agents' },
+    { id: 'systems', label: 'ML Systems & GPU' },
+    { id: 'classical', label: 'Classical ML' },
+    { id: 'vision', label: 'Vision & Multimodal' },
+    { id: 'speech', label: 'Speech' },
+    { id: 'research', label: 'Research' },
+]
 
 export default {
     name: 'Rahul Aditya',
@@ -92,432 +101,308 @@ export default {
         }
     ],
 
+    // Order matters: open source first, then professional work newest to oldest, then research.
+    // links[].type is one of 'github' | 'kaggle' | 'paper'. Professional work has no links.
     projects: [
-
+        // ---------- Open source ----------
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/enterprise.png',
+            title: 'Attention Sinks',
+            label: 'Open source',
+            tabs: ['systems', 'llm'],
+            summary: 'Attention-sink (StreamingLLM) KV cache for Hugging Face Transformers 5.',
+            bullets: [
+                'RoPE re-rotation, fused Triton eviction kernel, split-K flash-decoding backend, CUDA-graph decode',
+                'Qwen3-0.6B: perplexity within 6% of a full cache up to 40K tokens at constant memory (1.4 GB), where a window-only cache was 14× worse',
+                'Found and fixed a bf16 drift bug from repeated key rotation',
+            ],
+            tags: ['Transformers', 'Triton', 'KV cache', 'PyTorch'],
+            links: [
+                { type: 'github', url: 'https://github.com/buttaRahul/Attention_sinks', label: 'Code' },
+            ],
+        },
+        {
+            title: 'fused-rmsnorm-triton',
+            label: 'Open source',
+            tabs: ['systems'],
+            summary: 'Fused residual-add + RMSNorm kernel in OpenAI Triton, forward and backward.',
+            bullets: [
+                '85–89% of peak memory bandwidth on an RTX 4060',
+                '5–9× faster than eager PyTorch on forward, 8–12× on forward + backward; on par with torch.compile',
+                'Swapped into Qwen3-0.6B: logits closer to fp32 than stock Hugging Face; training loss within bf16 noise',
+            ],
+            tags: ['Triton', 'PyTorch', 'CUDA'],
+            links: [
+                { type: 'github', url: 'https://github.com/buttaRahul/fused-rmsnorm-triton', label: 'Code' },
+            ],
+        },
+        {
             title: 'Enterprise Search',
-            description: 'An AI-powered search solution for organizations, enabling a unified search across multiple sources like web, databases, company websites, and emails. Built on RAG and LLM, it intelligently processes queries to retrieve and generate relevant responses.',
-            tech:["llm", "langchain", "RAG",'React.js','fastAPI'],
+            label: 'Open source',
+            tabs: ['llm'],
+            summary: 'Search agent over emails, a SQL database, the company site and the web, on a LangGraph orchestration layer.',
+            bullets: [
+                'Typed planning and intent routing, parallel retrieval, reflection, citation checking, multi-turn threads with clarification via interrupt/resume',
+                'SQL subgraph with an AST guard, table allowlist, forbidden columns and a self-repair loop',
+                'Evaluated against a ReAct baseline on routing, SQL execution accuracy, multi-turn and prompt-injection suites',
+            ],
+            tags: ['LangGraph', 'FastAPI', 'RAG', 'React'],
             links: [
-
-                { link: 'https://github.com/buttaRahul/enterprise_serach', icon: React.createElement(GitHubIcon) },
-                { link: 'https://drive.google.com/file/d/1-LcfZN6QIreU_XQ3xXiSiOBX_Or5yuXh/view', icon: React.createElement(PlayArrowIcon) }
-
-            ]
+                { type: 'github', url: 'https://github.com/buttaRahul/enterprise_serach', label: 'Code' },
+            ],
         },
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/video_summary.png',
-            title: 'Multimodal video summarizer',
-            description: 'Enhanced video summarization by integrating both textual and visual information.',
-            tech:["deepseek-llm", "pyav", "opencv", "blip"],
+            title: 'Clinical Triage Navigator',
+            label: 'Open source',
+            tabs: ['research'],
+            summary: 'OpenEnv reinforcement-learning environment that simulates emergency-department triage: the agent assigns an ESI level, requests resources, routes patients and escalates sentinel conditions (STEMI, stroke, sepsis). The reward is asymmetric: under-triage costs more than over-triage.',
+            bullets: [],
+            tags: ['Reinforcement learning', 'OpenEnv', 'Healthcare'],
             links: [
-
-                { link: 'https://github.com/buttaRahul/multimodal_video_summarization', icon: React.createElement(GitHubIcon) },
-                { link: 'https://drive.google.com/file/d/1O2KA8uTEMT8D5XnuPp-Xz8l9eiKsCDn-/view', icon: React.createElement(PlayArrowIcon) }
-
-            ]
+                { type: 'github', url: 'https://github.com/buttaRahul/clinical_triage_env', label: 'Code' },
+            ],
         },
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/rag_query.png',
-            title: 'RAG Query System',
-            description: 'A RAG-based system extracts text from user-provided URLs, stores embeddings in a vector database, and uses an LLM to answer queries with context-specific answers derived solely from the extracted content. It features a robust backend and frontend for seamless interaction.',
-            tech:["llm", "RAG", "vectordb", "React.js","fastAPI"],
+            title: 'Image Captioning with Visual Attention',
+            label: 'Open source',
+            tabs: ['vision'],
+            summary: 'Encoder–decoder captioner in TensorFlow/Keras: frozen EfficientNetB0 image regions + 2-layer Transformer decoder.',
+            bullets: [
+                'BLEU-4 23.4 with beam search on a held-out Flickr8k test set (1,091 images)',
+            ],
+            tags: ['TensorFlow', 'Keras', 'Transformers', 'CNN'],
             links: [
-
-                { link: 'https://github.com/buttaRahul/Rag-QuerySystem', icon: React.createElement(GitHubIcon) },
-                { link: 'https://drive.google.com/file/d/1xySCE7QLMmfa02cXi1XwyFTyD0-fqBgY/view', icon: React.createElement(PlayArrowIcon) }
-
-            ]
-        },
-
-        {
-            tag: 'ML/Data Science',
-            image: '../assets/images/query.png',
-            title: 'Query Assist',
-            description: 'An NLP model which can convert Natural Language verbal specifications (in Telugu or English) into SQL queries and executes it against database. Implemented using SpaCy, Gensim, NLTK, speech_recogniton and torchaudio',
-            tech:["Python", "SpaCy", "Gensim", "speech_recognition"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/Query-Assist', icon: React.createElement(GitHubIcon) },
-
-            ]
+                { type: 'github', url: 'https://github.com/buttaRahul/Image-Caption-Generation', label: 'Code' },
+                { type: 'kaggle', url: 'https://www.kaggle.com/code/adityarahul/attention-mechanism-101', label: 'Kaggle notebook' },
+            ],
         },
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/caption.png',
-            title: 'Image Caption Generation',
-            description: 'A Deeplearning, Encoder-Decoder Model to generate text captions from images',
-            tech:["Tensorflow", "Keras", "Gensim", "cv2"],
+            title: 'Multimodal Video Summarization',
+            label: 'Open source',
+            tabs: ['vision', 'llm'],
+            summary: 'Summarises videos from both the transcript and the visuals: picks key frames by the importance of transcript sentences, describes those frames, and passes the descriptions plus transcript to an LLM.',
+            bullets: [],
+            tags: ['LLMs', 'Vision-language', 'Python', 'React'],
             links: [
-
-                { link: 'https://github.com/buttaRahul/Image-Caption-Generation', icon: React.createElement(GitHubIcon) },
-
-            ]
-        },
-
-        {
-            tag: 'ML/Data Science',
-            image: '../assets/images/time-series.png',
-            title: 'Time Series Forecasting on Tesla stocks',
-            description: "Developed a time-series forecasting model for Tesla's stock price, leveraging historical stock data and conducting exploratory data analysis (EDA)..",
-            tech:["Tensorflow", "Bi-directional LSTM", "seaborn"],
-            links: [
-
-                { link: 'https://www.kaggle.com/code/adityarahul/time-series-forecasting-on-tesla-stocks', icon: React.createElement(FaKaggle) },
-
-            ]
+                { type: 'github', url: 'https://github.com/buttaRahul/multimodal_video_summarization', label: 'Code' },
+            ],
         },
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/disease.png',
-            title: "Parkinson's Disease Progression Prediction",
-            description: "Predicted the progression of Parkinson's Disease by utilizing protein and peptide data measurements from data provided in a Kaggle Contest. Implemented using Pandas, Seaborn, Scikit-learn and XGBoost",
-            tech: ["Pandas", "Seaborn", "Sklearn", "XGBoost"],
+            title: 'QueryAssist (natural language → SQL)',
+            label: 'Open source',
+            tabs: ['research'],
+            summary: 'Ask a database questions in plain English, typed or spoken, and get the SQL and results. Early rule-based NLP prototype (2023) of the published system.',
+            bullets: [],
+            tags: ['NLP', 'SQL', 'Speech recognition'],
             links: [
-
-                { link: 'https://www.kaggle.com/code/adityarahul/eda-linearregression', icon: React.createElement(FaKaggle) },
-
-            ]
+                { type: 'github', url: 'https://github.com/buttaRahul/Query-Assist', label: 'Code' },
+            ],
         },
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/pepsi.jpg',
-            title: 'Pepsi Cocacola video tracking',
-            description: "Detect and track 'Pepsi' and 'Coca-Cola' objects in a video, capturing their appearance timestamps and key details such as size and distance from the frame's center.",
-            tech:["Yolov8", "OpenCv", "PyAv"],
+            title: 'OCR + NER',
+            label: 'Open source',
+            tabs: ['llm'],
+            summary: 'Extracts named entities from PDFs and scanned images: OCR followed by a fine-tuned bert-large-cased NER model, with a web UI.',
+            bullets: [],
+            tags: ['NER', 'OCR', 'BERT'],
             links: [
-
-                { link: 'https://www.kaggle.com/code/adityarahul/time-series-forecasting-on-tesla-stocks', icon: React.createElement(FaKaggle) },
-
-            ]
+                { type: 'github', url: 'https://github.com/buttaRahul/ocr-ner', label: 'Code' },
+            ],
         },
 
-
+        // ---------- Professional work: Zynix AI · Machine Learning Engineer · Sep 2025 – present ----------
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/ocrner.png',
-            title: 'Ocr-Ner',
-            description: 'An end-to-end pipeline to extract named entities from Pdf or Image files',
-            tech:["Transformers", "Bert","Pandas", "FastApi"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/ocr-ner', icon: React.createElement(GitHubIcon) },
-
-            ]
-        },
-        {
-            tag: 'ML/Data Science',
-            image: '../assets/images/road.png',
-            title: 'Road Sign Detection',
-            description: 'A deep learning model to detect road signs using YOLOv8',
-            tech:["Ultralytics", "YOLOv8","cv2"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/road-sign-detection/', icon: React.createElement(GitHubIcon) },
-
-            ]
-        },
-
-        
-
-        {
-            tag: 'ML/Data Science',
-            image: '../assets/images/mouse.jpg',
-            title: 'virtual Mouse',
-            description: 'A computer vision program to control your mouse pointer and click using hand gestures.Implented using OpenCV, Mediapipe Landmarks.',
-            tech:["OpenCV", "Mediapipe", "pyautogui"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/virtual-mouse', icon: React.createElement(GitHubIcon) },
-
-            ]
-        },
-
-        {
-            tag: 'ML/Data Science',
-            image: '../assets/images/news.png',
-            title: 'Fake News Detection',
-            description: 'A supervised machine learning model to detect Fake News articles Implemented using scikit-learn, NLTK, BERT-Encoder ',
-            tech:["Scikit-learn", "NLTK", "BERT"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/Fake-news-detection', icon: React.createElement(GitHubIcon) },
-
-            ]
-        },
-        
-     
-        {
-            tag: 'ML/Data Science',
-            image: '../assets/images/sentiment.jpg',
-            title: 'Twitter Sentiment Analysis',
-            description: 'A supervised machine learning model to predect sentiment of tweets ',
-            tech:["Scikit-learn", "SpaCy", "NLTK"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/twitter_sentiment_analysis', icon: React.createElement(GitHubIcon) },
-                // { link: 'https://buttarahul.github.io/currency-converter//', icon: React.createElement(PlayArrowIcon) },
-
-            ]
+            title: 'Fraud and waste detection for medical-equipment claims',
+            label: 'Professional work · Zynix AI',
+            role: 'Machine Learning Engineer · Sep 2025 – present',
+            tabs: ['classical'],
+            summary: 'Designed and built alone: a 5-layer system on Databricks over 6,500+ suppliers combining CMS-policy rules, peer baselines, an anomaly-detection ensemble (Isolation Forest, ECOD, kNN), graph referral features and positive-unlabeled learning.',
+            bullets: [
+                'All 5 suppliers the HHS-OIG later excluded were already in its top-0.53% risk tier',
+                'Held-out confirmed fraud suppliers ranked in the top 3% (median rank 1)',
+            ],
+            tags: ['Anomaly detection', 'PU learning', 'Databricks'],
+            links: [],
         },
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/accident.jpg',
-            title: 'Accident Severity Classification',
-            description: 'A supervised learning approach to classify accident severity',
-            tech:["Scikit-learn", "Tensorflow", "Pandas"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/accident-Severity-classification/', icon: React.createElement(GitHubIcon) },
-                // { link: 'https://buttarahul.github.io/currency-converter//', icon: React.createElement(PlayArrowIcon) },
-
-            ]
-        },
-        
-        
-        {
-            tag: 'ML/Data Science',
-            image: '../assets/images/lab.jpg',
-            title: 'ML Lab Work',
-            description: 'Machine Learning lab work done during ML course at IIITP',
-            tech:["Python", "scikitlearn", "tensorflow"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/IIITP-ML-Lab', icon: React.createElement(GitHubIcon) },
-
-            ]
-        },
-        
-        
-        {
-            tag: 'ML/Data Science',
-            image: '../assets/images/bird.png',
-            title: "EDA BirdCLEF",
-            description: "Exploratory data analysis (EDA) of audio sounds of different species of birds Implemented using torchaudio, seaborn and librosa",
-            tech:["torchaudio", "Seaborn", "librosa"],
-            links: [
-
-                { link: 'https://www.kaggle.com/code/adityarahul/edabirdclef', icon: React.createElement(FaKaggle) },
-
-            ]
+            title: 'Clinical risk prediction on Medicare claims',
+            label: 'Professional work · Zynix AI',
+            role: 'Machine Learning Engineer · Sep 2025 – present',
+            tabs: ['classical'],
+            summary: '',
+            bullets: [
+                '30-day admission, ER and readmission models (XGBoost) on 1.18M member-months: AUROC up to 0.79, 4.5× AUPRC lift on a patient-disjoint holdout',
+                'Capacity-sized thresholds raised 30-day precision 2.4× on an out-of-time fold; weekly outreach flags cut from about 1,600 to 300',
+                'Heart-disease stage-progression models for 98.5K patients (AUROC 0.76–0.80)',
+            ],
+            tags: ['XGBoost', 'Calibration', 'Databricks'],
+            links: [],
         },
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/movie.png',
-            title: "Movie Genre Classification",
-            description: "Text Classification problem where I used movie plot summaries to predict movie genres. Implemente using Spacy, NLTK and scikit-learn" ,
-            tech:["torchaudio", "Seaborn", "librosa"],
-            links: [
-
-                { link: 'https://www.kaggle.com/code/adityarahul/movie-genre-classification', icon: React.createElement(FaKaggle) },
-
-            ]
+            title: 'Claims foundation model and multi-GPU training',
+            label: 'Professional work · Zynix AI',
+            role: 'Machine Learning Engineer · Sep 2025 – present',
+            tabs: ['llm', 'systems'],
+            summary: '',
+            bullets: [
+                'Data-parallel LoRA trainer for Qwen3-4B on 4× L40S and 4× RTX 4090 nodes; fixed a gradient-sync bug that all-reduced only the last micro-batch; tested a 3D-parallel configuration for scale-up',
+                'Held-out claims perplexity 1.79 → 1.33',
+                'Beat XGBoost on 12-month CKD progression (AUROC 0.674 vs 0.645)',
+            ],
+            tags: ['LoRA', 'Distributed training', 'PyTorch'],
+            links: [],
         },
         {
-            tag: 'ML/Data Science',
-            image: '../assets/images/disaster.jpg',
-            title: "Fake Disaster Tweet Detection",
-            description: "A NLP approach to classify a tweet as a Real or Fake Disaster Tweet. Implemented using NLTK and scikit-learn",
-            tech: ["NLTK", "Scikit-learn"],
-            links: [
+            title: 'Multi-client voice agent',
+            label: 'Professional work · Zynix AI',
+            role: 'Machine Learning Engineer · Sep 2025 – present',
+            tabs: ['llm', 'speech'],
+            summary: '',
+            bullets: [
+                'Modular LangGraph calling-agent architecture: per-client call flows from YAML config, graph-agnostic LLM service, plug-in memory extractors',
+                'Streaming speech enhancement (RNNoise, then fine-tuned DeepFilterNet) and two-stage voicemail detection',
+            ],
+            tags: ['LangGraph', 'Speech enhancement', 'Voice AI'],
+            links: [],
+        },
 
-                { link: 'https://www.kaggle.com/code/adityarahul/disaster-tweets-prediction-using-nlp', icon: React.createElement(FaKaggle) },
-
-            ]
+        // ---------- Professional work: Carnot Research (IIT Delhi) · Machine Learning Engineer · Mar – Sep 2025 ----------
+        {
+            title: 'Multilingual GraphRAG for icarKno',
+            label: 'Professional work · Carnot Research (IIT Delhi)',
+            role: 'Machine Learning Engineer · Mar – Sep 2025',
+            tabs: ['llm'],
+            summary: 'Productionised GFM-RAG (graph-neural retrieval over a document knowledge graph) for 12 Indian languages.',
+            bullets: [
+                'Macro Recall@10 59.8% → 77.3% and multi-hop success 52% → 72% vs ColBERTv2',
+            ],
+            tags: ['GraphRAG', 'GNN', 'Multilingual'],
+            links: [],
         },
         {
-            tag: 'Web Apps',
-            image: '../assets/images/postman.png',
-            title: 'Postman Clone',
-            description: 'Redesigned the Postman application to enhance the user experience for testing API requests, with improved query parameter handling, headers management, and JSON options Using ReactJs and Material UI.',
-            tech: ["ReactJs","Material UI"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/postman-clone', icon: React.createElement(GitHubIcon) },
-                { link: 'https://postman-clone-buttarahul.netlify.app/', icon:React.createElement(PlayArrowIcon) }
-
-            ]
-        },
-
-        {
-            tag: 'Web Apps',
-            image: '../assets/images/crypto.png',
-            title: 'Cryptocurrency Tracker',
-            description: 'A Web application for real-time tracking of cryptocurrencies. Users can track the value of cryptocurrencies in real time, allowing them to make informed decisions about buying, selling, or holding assets. Implemented Using ReactJs, Material UI and ReactchartJS.',
-            tech: ["ReactJs","Material UI", "ReactchartJS"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/react-crypto-tracker', icon: React.createElement(GitHubIcon) },
-                { link: 'https://cryptotracker-buttarahul.netlify.app/', icon: React.createElement(PlayArrowIcon) }
-
-            ]
+            title: 'On-device voice and vision agent on NVIDIA Jetson AGX Orin',
+            label: 'Professional work · Carnot Research (IIT Delhi)',
+            role: 'Machine Learning Engineer · Mar – Sep 2025',
+            tabs: ['systems', 'vision', 'speech'],
+            summary: 'End to end from flashing the board: faster-whisper ASR, LLaVA-1.5 7B quantised to 4-bit with AWQ, Chatterbox TTS, attention-sink KV cache for long sessions.',
+            bullets: [],
+            tags: ['Edge AI', 'Quantization', 'VLM'],
+            links: [],
         },
         {
-            tag: 'Web Apps',
-            image: '../assets/images/cal.png',
-            title: 'Emi Calculator',
-            description: 'Created a calculator application that helps you to calculate the EMI, monthly interest, and monthly reducing balance based on principal amount, loan tenure, and interest rate. Implemented using React.js and Timeline Component from Material UI',
-            tech:["ReactJS","Material Ui"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/emi-calculator', icon: React.createElement(GitHubIcon) },
-                { link: 'https://buttarahul.github.io/emi-calculator/', icon: React.createElement(PlayArrowIcon) }
-
-            ]
+            title: 'Sachet disaster-alert chatbot',
+            label: 'Professional work · Carnot Research (IIT Delhi)',
+            role: 'Machine Learning Engineer · Mar – Sep 2025',
+            tabs: ['llm'],
+            summary: "Sole developer: QLoRA fine-tuning of Qwen 7B for the citizen chatbot in Sachet, India's national disaster-alert app.",
+            bullets: [],
+            tags: ['QLoRA', 'LLM fine-tuning'],
+            links: [],
         },
         {
-            tag: 'Web Apps',
-            image: '../assets/images/todo.png',
-            title: 'Todo Application',
-            description: 'Created a full-stack Todo list app that helps you keep track of your daily tasks using Django, ReactJS and Material UI',
-            // tech:"Django, ReactJS, Material Ui",
-            tech: ["Django","ReactJS","Material UI"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/full_stack_django_rest_react/tree/main/todo', icon: React.createElement(GitHubIcon) },
-
-            ]
+            title: 'Real-time voice bot with voice cloning',
+            label: 'Professional work · Carnot Research (IIT Delhi)',
+            role: 'Machine Learning Engineer · Mar – Sep 2025',
+            tabs: ['speech'],
+            summary: 'End-to-end voice bot with voice cloning and real-time streaming of input and output audio.',
+            bullets: [],
+            tags: ['TTS', 'Streaming'],
+            links: [],
         },
         {
-            tag: 'Web Apps',
-            image: '../assets/images/dashboard.png',
-            title: 'Dashboard',
-            description: 'A Responsive React Dashboard created using ReactJS, recharts and SCSS',
-            tech:["ReactJS","recharts","SCSS"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/React-Dashboard', icon: React.createElement(GitHubIcon) },
-                { link: 'https://react-dashboard-buttarahul.netlify.app/', icon: React.createElement(GitHubIcon) },
-
-            ]
-        },
-        
-        {
-            tag: 'Web Apps',
-            image: '../assets/images/monitor.png',
-            title: 'Applinace Monitor',
-            description: 'Appliance Monitor to check the up-time of various appliances. Implemented using ReactJS',
-            tech:["ReactJS"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/appliance-monitor', icon: React.createElement(GitHubIcon) },
-                { link: 'https://buttarahul.github.io/appliance-monitor/', icon: React.createElement(PlayArrowIcon) },
-
-            ]
+            title: 'Indic speech and translation',
+            label: 'Professional work · Carnot Research (IIT Delhi)',
+            role: 'Machine Learning Engineer · Mar – Sep 2025',
+            tabs: ['speech', 'llm'],
+            summary: 'Transliteration and text-to-speech for Indic languages; fine-tuned TTS and built a neural machine-translation model for a low-resource Indian language for a government client.',
+            bullets: [],
+            tags: ['TTS', 'Machine translation'],
+            links: [],
         },
         {
-            tag: 'Web Apps',
-            image: '../assets/images/boxoffice.png',
-            title: 'Box office',
-            description: 'An application to search movies, actors and a feature to set favourites. Implemented using ReactJS',
-            tech:["ReactJS"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/box-office', icon: React.createElement(GitHubIcon) },
-                { link: 'https://buttarahul.github.io/box-office/', icon: React.createElement(PlayArrowIcon) },
-
-            ]
+            title: 'Natural-language database agent',
+            label: 'Professional work · Carnot Research (IIT Delhi)',
+            role: 'Machine Learning Engineer · Mar – Sep 2025',
+            tabs: ['llm'],
+            summary: 'Domain-specific database agent for natural-language data retrieval.',
+            bullets: [],
+            tags: ['LLM agents', 'SQL'],
+            links: [],
         },
 
+        // ---------- Professional work: VideoVerse · ML Engineering Intern · Aug – Nov 2024 ----------
         {
-            tag: 'Web Apps',
-            image: '../assets/images/convert.png',
-            title: 'Currency Converter',
-            description: 'Simple tool to convert foreign currencies to Indian rupees. Implemented using ReactJS,',
-            tech:["ReactJS"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/currency-converter', icon: React.createElement(GitHubIcon) },
-                { link: 'https://buttarahul.github.io/currency-converter//', icon: React.createElement(PlayArrowIcon) },
-
-            ]
-        },
-        {
-            tag: 'Web Apps',
-            image: '../assets/images/task.png',
-            title: 'Task Management System',
-            description: 'created a RESTful API for a task management system using Django Rest Framework. The API supports CRUD operations (Create, Read, Update, Delete) for tasks. Implemented using Django Rest Framework',
-            tech:["Python","Django","Django-Rest-Framework"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/task_management', icon: React.createElement(GitHubIcon) },
-                // { link: 'https://buttarahul.github.io/currency-converter//', icon: React.createElement(PlayArrowIcon) },
-
-            ]
+            title: 'Live cricket event detection',
+            label: 'Professional work · VideoVerse',
+            role: 'ML Engineering Intern · Aug – Nov 2024',
+            tabs: ['vision'],
+            summary: '',
+            bullets: [
+                'Fine-tuned VideoMAE in a production ensemble with VLMs serving Disney+ Hotstar and other streaming platforms; about 74% precision on its 2 priority event classes',
+                "Handled rare-event class imbalance (weighted loss, downsampling); DeepSpeed mixed-precision fine-tuning; large-scale video processing with Ray on H100s; REST inference server for the team's fine-tuned VLM",
+            ],
+            tags: ['VideoMAE', 'DeepSpeed', 'Ray'],
+            links: [],
         },
 
+        // ---------- Professional work: Dronapay · Data Science Intern · Apr – Jul 2024 ----------
         {
-            tag: 'Web Apps',
-            image: '../assets/images/chatbot.png',
-            title: "AI ChatBot",
-            description: "AI ChatBot Implemented using React.js, Chakra UI and OpenAi Api",
-            tech: ["React.js", "Chakra UI"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/chatbot-react', icon: React.createElement(GitHubIcon) },
-                { link: 'https://reactchat-bot.netlify.app/', icon: React.createElement(PlayArrowIcon) },
-
-            ]
+            title: 'Natural-language fraud rules to JSONLogic',
+            label: 'Professional work · Dronapay',
+            role: 'Data Science Intern · Apr – Jul 2024',
+            tabs: ['llm'],
+            summary: 'LoRA-fine-tuned Llama 2 7B with retrieval over system metadata: 82% logical and 74% execution accuracy.',
+            bullets: [],
+            tags: ['LoRA', 'RAG'],
+            links: [],
         },
         {
-            tag: 'Web Apps',
-            image: '../assets/images/tunes.png',
-            title: "Favorite Tunes",
-            description: "A Django application that allows users to add and display their favourite songs and the artists who perform them",
-            tech: ["Python", "Django"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/FavoriteTunes', icon: React.createElement(GitHubIcon) },
-
-            ]
+            title: 'Keystroke-dynamics fraud detection',
+            label: 'Professional work · Dronapay',
+            role: 'Data Science Intern · Apr – Jul 2024',
+            tabs: ['classical'],
+            summary: '+12 points fraud-detection accuracy with keystroke-dynamics features; transaction-delinquency models deployed on a serverless architecture.',
+            bullets: [],
+            tags: ['Behavioural biometrics', 'Fraud detection'],
+            links: [],
         },
-        
+
+        // ---------- Professional work: Ylytic · Data Science Intern · Nov 2022 – Jan 2023 ----------
         {
-            tag: 'Web Apps',
-            image: '../assets/images/tic.png',
-            title: 'Tic-Tac-Toe',
-            description: 'A tictactoe game using react. Implemted using ReactJs and Javascript',
-            tech: ["ReactJs", "Javascript"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/tictactoe', icon: React.createElement(GitHubIcon) },
-
-            ]
+            title: 'Audience location and comment sentiment',
+            label: 'Professional work · Ylytic',
+            role: 'Data Science Intern · Nov 2022 – Jan 2023',
+            tabs: ['classical'],
+            summary: 'Viewer-location (city) prediction and NLP sentiment analysis of comments on scraped Instagram data.',
+            bullets: [],
+            tags: ['NLP', 'Sentiment analysis'],
+            links: [],
         },
+
+        // ---------- Research ----------
         {
-            tag: 'C++',
-            image: '../assets/images/sys.png',
-            title: 'System Monitor',
-            description: 'A program that monitors system performance and provides real-time information about CPU, memory, and disk usage and alerts for high CPU usage or low disk space. Implemented using C++',
-            tech: ["C++"],
-            links: [
-
-                { link: 'https://github.com/buttaRahul/system-monitor', icon: React.createElement(GitHubIcon) },
-                // { link: 'https://buttarahul.github.io/currency-converter//', icon: React.createElement(PlayArrowIcon) },
-
-            ]
+            title: 'Water-surface object detection',
+            label: 'Research',
+            role: 'Research Assistant, IIIT Pune (Dr. Sanjeev Sharma) · Sep – Nov 2023',
+            tabs: ['research', 'vision'],
+            summary: 'Deep-learning object detection and image segmentation for objects on water surfaces.',
+            bullets: [],
+            tags: ['Object detection', 'Segmentation'],
+            links: [],
         },
         {
-            tag: 'C++',
-            image: '../assets/images/gg.png',
-            title: 'Ticket Booking System',
-            description: 'A simple ticket booking system for movies implemented by using OOPS concepts in C++',
-            tech: ["C++"],
+            title: 'QueryAssist: Multimodal Verbal Specifications to Structured Query Conversion Model Using Word Vector-Based Semantic Analysis',
+            label: 'Research',
+            role: 'Publication · InCITe 2024, Springer',
+            tabs: ['research'],
+            summary: 'Boddu, Butta et al. InCITe 2024, Springer (Lecture Notes in Electrical Engineering, vol. 1278).',
+            bullets: [
+                'Best Paper Award',
+            ],
+            tags: [],
             links: [
-
-                { link: 'https://github.com/buttaRahul/Ticket-booking-system', icon: React.createElement(GitHubIcon) },
-                // { link: 'https://buttarahul.github.io/currency-converter//', icon: React.createElement(PlayArrowIcon) },
-
-            ]
+                { type: 'paper', url: 'https://link.springer.com/chapter/10.1007/978-981-97-8193-5_6', label: 'Paper' },
+            ],
         },
-
-        
-    
     ]
 
- 
-} 
+}
