@@ -11,7 +11,7 @@ const Footer = () => {
           <Typography className='footer_name'>{resumeData.name}</Typography>
        </Box>
        <Box className='footer_left'>
-          <Typography className='footer_credits'>Designed and Developed by <a href='https://www.linkedin.com/in/rahul-aditya/' target='_blank'>Rahul Aditya</a> 
+          <Typography className='footer_credits'>Developed by <a href='https://www.linkedin.com/in/rahul-aditya/' target='_blank'>Rahul Aditya</a> 
           
           </Typography>
        </Box>

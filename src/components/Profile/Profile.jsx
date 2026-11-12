@@ -47,7 +47,7 @@ const Profile = () => {
 
   return (
     
-    <Paper elevation={10} className='profile container_shadow'>
+    <Paper elevation={10} className='profile container_shadow '>
       <Box className='profile_name'>
         <Typography className='name'>{resumeData.name}</Typography>
         <Typography className='title'>{resumeData.title}</Typography>

@@ -17,8 +17,8 @@ function App() {
   return (
     // <BrowserRouter>
     <Container >
-      <Grid container gap={3} className="p_container">
-        <Grid item xs={12} sm={5} md={4} lg={3}   >
+      <Grid container spacing={6} className="p_container">
+        <Grid item xs={12} sm={6} md={4} lg={3}   >
           <Profile />
         </Grid>
 
