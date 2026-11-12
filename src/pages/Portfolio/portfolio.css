@@ -66,7 +66,6 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
-  transform-style: preserve-3d;
 }
 
 .cardInner {
@@ -75,7 +74,6 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
-  transform-style: preserve-3d;
 }
 
 .cardContent {

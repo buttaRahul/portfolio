@@ -83,15 +83,15 @@ const Portfolio = () => {
                     className="cardContainer"
                     onMouseMove={(e) => handleMouseMove(e, prj)}
                     onMouseLeave={handleMouseLeave}
-                    style={{ perspective: 800, transformStyle: 'preserve-3d' }}
+                    style={{ perspective: 800 }}
                   >
+                    {/* No preserve-3d: a tilted card must stay flattened above its container,
+                        otherwise the half that tilts backwards sinks behind it and its links stop receiving clicks. */}
                     <motion.div
                       className="cardInner"
                       style={{
                         rotateX: hoveredCard === prj ? rotateX : 0,
                         rotateY: hoveredCard === prj ? rotateY : 0,
-                        transformStyle: 'preserve-3d',
-                        perspective: 1000,
                       }}
                       transition={{ velocity: 0 }}
                     >
