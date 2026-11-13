@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { HYPERSPACE_EVENT, Starfield } from "../components/Starfield";
+import { HYPERSPACE_EVENT } from "../components/Starfield";
 import { CopyEmail } from "../components/CopyEmail";
 import { KVExplorer } from "../components/KVExplorer";
 import { RESUME_HREF, education, experience, proof, publication, site } from "../data/site";
@@ -55,7 +55,6 @@ export function Home() {
     <main id="main">
       {/* ---------------- Hero ---------------- */}
       <section className="hero force-dark" aria-labelledby="hero-title">
-        <Starfield />
         <div className="wrap hero-inner">
           <div className="hero-id">
             <span className="name">{site.name}</span>

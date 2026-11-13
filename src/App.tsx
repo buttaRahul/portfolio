@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Lightsaber } from "./components/Lightsaber";
+import { Starfield } from "./components/Starfield";
 import { site } from "./data/site";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
@@ -30,6 +31,7 @@ export default function App() {
       <a className="skip" href="#main">
         Skip to content
       </a>
+      <Starfield />
       <ScrollManager />
       <Header />
       <Routes>

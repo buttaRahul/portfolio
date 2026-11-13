@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { RESUME_HREF, site } from "../data/site";
 import { useScrolled } from "../lib/hooks";
-import { ThemeToggle } from "./ThemeToggle";
 
 export function BrandMark() {
   return (
@@ -45,7 +44,6 @@ export function Header() {
           <Link className="nav-link" to="/#contact">
             Contact
           </Link>
-          <ThemeToggle />
           <a className="btn btn-sm btn-solid" href={RESUME_HREF} target="_blank" rel="noreferrer">
             Resume
           </a>

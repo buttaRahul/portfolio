@@ -9,8 +9,8 @@ import { useEffect, useRef } from "react";
  */
 
 const INTERACTIVE = "a, button, summary, input, select, textarea, label, [role='button'], [tabindex]:not([tabindex='-1'])";
-const BLADE = 56;
-const HILT = 17;
+const BLADE = 34;
+const HILT = 11;
 const REST_ANGLE = Math.PI * 0.3; // blade points down-right from the tip, like an arrow cursor
 const ARC_MS = 110;
 
@@ -82,7 +82,7 @@ export function Lightsaber() {
       if (!tip || !visible) return false;
 
       // Ease toward targets.
-      const targetLen = BLADE + hover * 10;
+      const targetLen = BLADE + hover * 6;
       length += (targetLen - length) * (reduced ? 1 : Math.min(1, dt * 14));
       hover += (hoverTarget - hover) * (reduced ? 1 : Math.min(1, dt * 12));
       vx *= 0.86;
@@ -123,17 +123,17 @@ export function Lightsaber() {
       // Blade: outer glow, colored body, hot white core. A subtle flicker.
       const flicker = reduced ? 1 : 0.9 + Math.random() * 0.1;
       const glow = (0.35 + hover * 0.25) * flicker;
-      line(tip.x, tip.y, bx, by, 11 + hover * 4, color, glow, 24);
-      line(tip.x, tip.y, bx, by, 5.5, color, 0.95, 12);
-      line(tip.x, tip.y, bx, by, 2.2, "#ffffff", 0.95);
+      line(tip.x, tip.y, bx, by, 8 + hover * 3, color, glow, 18);
+      line(tip.x, tip.y, bx, by, 4, color, 0.95, 9);
+      line(tip.x, tip.y, bx, by, 1.6, "#ffffff", 0.95);
 
       // Hilt: emitter ring, grip, pommel.
       const hx = bx + ux * HILT;
       const hy = by + uy * HILT;
       ctx.shadowBlur = 0;
-      line(bx, by, hx, hy, 6, "#9aa1ad", 1);
-      line(bx + ux * 4, by + uy * 4, bx + ux * 11, by + uy * 11, 6.5, "#2a2f38", 1);
-      line(bx, by, bx + ux * 1.5, by + uy * 1.5, 7.5, "#c9ced6", 1);
+      line(bx, by, hx, hy, 4.5, "#9aa1ad", 1);
+      line(bx + ux * 3, by + uy * 3, bx + ux * 8, by + uy * 8, 5, "#2a2f38", 1);
+      line(bx, by, bx + ux * 1.2, by + uy * 1.2, 5.5, "#c9ced6", 1);
 
       // Sparks from clicks.
       sparks = sparks.filter((s) => now - s.t < 380);
