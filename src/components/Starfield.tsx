@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 /**
  * Site-wide deep-space background: a fixed 3D starfield behind every page.
  * Stars fly slowly toward the viewer from a vanishing point that shifts with
- * the pointer (parallax); scrolling briefly speeds them up, and a `hyperspace`
+ * the pointer (parallax), dimmed behind the text column; a `hyperspace`
  * window event stretches them into streaks. Paused in background tabs; one
  * static frame under prefers-reduced-motion.
  */
@@ -12,7 +12,7 @@ export const HYPERSPACE_EVENT = "hyperspace";
 
 type Star = { x: number; y: number; z: number; pz: number; tint: number };
 
-const IDLE_SPEED = 0.04; // depth units per second
+const IDLE_SPEED = 0.022; // depth units per second: slow enough not to pull the eye
 const JUMP_SPEED = 1.6;
 const DEPTH = 1;
 
@@ -29,11 +29,12 @@ export function Starfield() {
     let h = 0;
     let stars: Star[] = [];
     let speed = IDLE_SPEED;
-    let boost = 0;
     let jumpUntil = 0;
     let raf = 0;
     let last = performance.now();
-    let lastScroll = window.scrollY;
+    // The text column (from the first .wrap) gets a calm zone with dimmed stars.
+    let colL = 0;
+    let colR = 0;
     const vp = { x: 0, y: 0 };
     const vpTarget = { x: 0, y: 0 };
 
@@ -55,7 +56,11 @@ export function Starfield() {
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       // Sparse enough that body text stays easy to read on top.
-      const count = Math.round(Math.min(700, (w * h) / 2100));
+      const count = Math.round(Math.min(480, (w * h) / 3000));
+      const wrap = document.querySelector(".wrap");
+      const rect = wrap?.getBoundingClientRect();
+      colL = rect ? rect.left : w * 0.12;
+      colR = rect ? rect.right : w * 0.88;
       stars = Array.from({ length: count }, () => {
         const s = { x: 0, y: 0, z: 0, pz: 0, tint: 0 };
         spawn(s, false);
@@ -86,7 +91,10 @@ export function Starfield() {
           continue;
         }
         const near = 1 - s.z / DEPTH;
-        const alpha = Math.min(0.85, 0.12 + near * 0.95);
+        // Dim stars that pass behind the text column, with soft 80px edges.
+        const edge = Math.min(p.x - colL, colR - p.x);
+        const calm = edge <= 0 ? 1 : edge >= 80 ? 0.42 : 1 - (edge / 80) * 0.58;
+        const alpha = Math.min(0.7, 0.1 + near * 0.7) * calm;
         const col = s.tint > 0.92 ? "170 200 255" : s.tint < 0.05 ? "255 205 190" : "255 255 255";
         if (streak > 0.04) {
           const q = project(s, Math.min(DEPTH, s.pz + streak * 0.08));
@@ -98,7 +106,7 @@ export function Starfield() {
           ctx.stroke();
         } else {
           ctx.fillStyle = `rgb(${col} / ${alpha})`;
-          const r = 0.35 + near * near * 1.6;
+          const r = 0.35 + near * near * 1.05;
           ctx.beginPath();
           ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
           ctx.fill();
@@ -111,11 +119,7 @@ export function Starfield() {
       if (document.hidden) return;
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
-      const y = window.scrollY;
-      boost = Math.min(0.5, boost + Math.abs(y - lastScroll) * 0.0012);
-      lastScroll = y;
-      boost *= 0.9;
-      const targetSpeed = (now < jumpUntil ? JUMP_SPEED : IDLE_SPEED) + boost;
+      const targetSpeed = now < jumpUntil ? JUMP_SPEED : IDLE_SPEED;
       speed += (targetSpeed - speed) * (targetSpeed > speed ? 0.1 : 0.05);
       vp.x += (vpTarget.x - vp.x) * 0.05;
       vp.y += (vpTarget.y - vp.y) * 0.05;
