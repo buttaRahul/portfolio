@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 /**
  * Site-wide deep-space background: a fixed 3D starfield behind every page.
  * Stars fly slowly toward the viewer from a vanishing point that shifts with
- * the pointer (parallax), dimmed behind the text column; a `hyperspace`
+ * the pointer (parallax), speeds up while scrolling, dims behind the text column; a `hyperspace`
  * window event stretches them into streaks. Paused in background tabs; one
  * static frame under prefers-reduced-motion.
  */
@@ -30,6 +30,8 @@ export function Starfield() {
     let stars: Star[] = [];
     let speed = IDLE_SPEED;
     let jumpUntil = 0;
+    let boost = 0;
+    let lastScroll = window.scrollY;
     let raf = 0;
     let last = performance.now();
     // The text column (from the first .wrap) gets a calm zone with dimmed stars.
@@ -121,7 +123,12 @@ export function Starfield() {
       if (document.hidden) return;
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
-      const targetSpeed = now < jumpUntil ? JUMP_SPEED : IDLE_SPEED;
+      // Scrolling flies the ship forward: speed rises with scroll velocity, then eases off.
+      const y = window.scrollY;
+      boost = Math.min(0.42, boost + Math.abs(y - lastScroll) * 0.001);
+      lastScroll = y;
+      boost *= 0.9;
+      const targetSpeed = (now < jumpUntil ? JUMP_SPEED : IDLE_SPEED) + boost;
       speed += (targetSpeed - speed) * (targetSpeed > speed ? 0.1 : 0.05);
       vp.x += (vpTarget.x - vp.x) * 0.05;
       vp.y += (vpTarget.y - vp.y) * 0.05;
