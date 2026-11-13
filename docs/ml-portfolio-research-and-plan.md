@@ -94,8 +94,9 @@ engineering), with large comp variance between them. Reviewers screen for one
 track. [S1–S2] These sources are directional (blogs and aggregators, not
 labour-market data).
 
-**Implication:** one identity line, then **role lenses** (the same mechanism
-as Ravi's site) so the application link leads with the matching track.
+**Implication:** one identity line naming the track. Rahul chose a single
+track (core ML + deep learning + ML systems), so a single site without lenses
+is enough; AI-engineer work stays as supporting breadth.
 
 ### 2.5 Live demos help only when they show the work
 
@@ -105,7 +106,33 @@ work is private (Medicare claims, government clients), so a live model demo
 of that work is not possible. **The demo that pays off is an interactive
 explainer driven by his own measured data** (§4.4), not a chatbot wrapper.
 
-### 2.6 Limits of this research
+### 2.6 Design research: what looks credible to ML reviewers
+
+- **ML has its own design tradition.** Distill (Olah, Carter) defined it:
+  articles judged on "outstanding communication", interactive figures where
+  they communicate better than static ones, and design review as part of peer
+  review. Anthropic's transformer-circuits.pub continues it with mobile-friendly
+  HTML, linkable sections and inline interactive diagrams. Hohman et al.
+  (Distill 2020) give the theory behind interactive articles. [G1–G3] To an
+  ML reviewer this register reads as "one of us" in a way agency-style
+  portfolio design does not.
+- **Explorable explanations.** Ciechanowski's essays (sliders + diagrams,
+  vanilla JS + inline SVG) and Bret Victor's "Explorable Explanations" show that
+  the reader manipulating the real system is the signal. [G4–G5]
+- **2026 web trends** (agency blogs, so opinion): type as the primary visual
+  in place of hero imagery, interactive data integrated into the page,
+  editorial/magazine layouts. "Polished is the new generic" (DesignRush). [G6–G7]
+- **Developer sites that work for recruiters** (Brittany Chiang, leerob.io)
+  are restrained: clear specialty in the first line, type and projects, no
+  effects that delay the content. [G8]
+
+**Synthesis → direction "Figure 1":** a research-note site. Big confident
+type for the claim, then *figures* as the main visual content: numbered,
+captioned, real data, a few interactive. Margin notes on desktop for caveats
+and methodology (Tufte/Distill). Restraint everywhere else. Spectacle comes
+only from the figures, and they show Rahul's actual results.
+
+### 2.7 Limits of this research
 
 No source gives a controlled measurement of portfolio style against interview
 rate. The recommendations combine hiring-practitioner guidance (Huyen), job
@@ -160,41 +187,56 @@ resume already discloses, with abstract diagrams and no internal data.
 
 ## 4 Plan
 
+**Decisions (13 Nov 2026):** one site, no lenses. Target: Senior ML Engineer
+/ MLE II–III roles in **core ML, deep learning and ML systems**. LLM-app /
+agent / RAG-app ("AI engineer") work is kept but moved to the background.
+Employer detail is decided per project (below). The KV-cache explorer is the
+signature interaction. The design is new, not Ravi's.
+
+On level: about 1.7 years full-time plus internships. The site never claims a
+title; it shows senior-level *scope*: sole ownership, system design, validation
+design, debugging distributed training. That is what senior screens check.
+
 ### 4.1 Information architecture
 
 ```
-/                       → redirects to the default lens (/applied)
-/applied                Home, Applied ML & LLMs lens
-/systems                Home, ML systems & inference lens
-/:lens/work/<slug>      Case study (same content, lens reorders metrics/emphasis)
-/:lens/notes/<slug>     Technical notes (worklogs)
-/:lens/about            Background, timeline, publication, education
-/resume.pdf             Direct link (also header button)
+/                 Home (single page: claim, selected work, explorer, more work, experience, contact)
+/work/<slug>      Case study or worklog
+/resume.pdf       Direct link (header button)
+*                 404
 ```
-
-Lens = the `?role` mechanism from Ravi's site (`RoleContext`, `withRole`),
-renamed. Each application gets a link with the matching lens.
-
-| Lens | Hero emphasis | Featured order |
-|---|---|---|
-| Applied ML & LLMs | Production models with checked outcomes | Fraud detection → Clinical risk + thresholds → GraphRAG → Claims LLM → Voice agent |
-| ML systems & inference | Kernels, KV caches, distributed training | Attention sinks → fused RMSNorm → Claims LLM multi-GPU → Jetson agent → Fraud detection |
 
 ### 4.2 Homepage, top to bottom
 
-1. **Hero:** name, identity line, lens switch, three proof metrics chosen per
-   lens (e.g. *5/5 later OIG exclusions in top 0.53%*, *1,600 → 300 weekly
-   flags*, *89% of peak bandwidth*), plus **Resume** and **Email** buttons.
-2. **Selected work:** 4–5 case studies, each a summary card (problem, what I
-   built, how it was checked, one figure).
-3. **Signature explainer:** the KV-cache explorer (§4.4).
-4. **Technical notes:** 2 worklogs.
-5. **More work:** compact list of the remaining professional projects and
-   the stronger open-source ones (one line each, no cards).
-6. **Experience timeline + publication.**
-7. **Contact:** email with copy button, LinkedIn, GitHub, Kaggle.
+1. **Hero:** name, identity line, three proof metrics (*5 of 5 later
+   OIG exclusions already in the top 0.53%*, *perplexity within 6% of full
+   cache at constant memory*, *85–89% of peak bandwidth*), **Resume** and
+   **Email** buttons. Live "attention field" behind it.
+2. **Selected work:** 5 entries, each a summary row (problem, what I built,
+   how it was checked, figure thumbnail).
+3. **Fig. — KV-cache explorer** inline (§4.4).
+4. **More work:** compact one-line list of everything else, core ML / DL
+   first, AI-engineer items last.
+5. **Experience timeline + publication + education.**
+6. **Contact:** email with copy button, LinkedIn, GitHub, Kaggle.
 
-### 4.3 Case studies (first release: 4 deep + compact entries)
+### 4.3 Case studies (first release: 5 deep + compact entries)
+
+| Order | Case | Kind | Employer detail |
+|---|---|---|---|
+| 1 | Fraud & waste detection without labels | Core ML | Method-level: the 5 layers, PU learning setup, how validation was designed. No supplier data. |
+| 2 | Attention-sink KV cache | Systems / worklog | Fully public: README tables and figures |
+| 3 | Claims foundation model + multi-GPU LoRA | DL + systems | Engineering-level: the gradient-sync bug and how it was found, perplexity and CKD comparison. No data. |
+| 4 | Clinical risk + capacity thresholds | Core ML | Method-level: holdout design, threshold policy, outcome numbers |
+| 5 | Fused residual-add + RMSNorm | Systems / worklog | Fully public |
+
+Compact list (one line + key number): Jetson AGX Orin agent (systems), VideoMAE
+event detection (DL), multilingual GraphRAG with GNN retrieval (DL), Dronapay
+keystroke dynamics (classical), Image captioning, QueryAssist paper, Clinical
+Triage RL env. Last, as "Also built": voice agent, Sachet QLoRA chatbot,
+NL→JSONLogic, Enterprise Search.
+
+Earlier draft of the case table, kept for figure ideas:
 
 Each uses the same schema: dek, role and timeframe, problem, constraints, what
 I built, hard parts, **how it was validated**, metrics, **what didn't work /
@@ -232,26 +274,26 @@ demonstrates the skill, uses real data, and ties into the case study.
 Optional, second release: **threshold explainer** for the capacity case, using
 only the published endpoints (no invented curve).
 
-### 4.5 Visual direction: "Measured"
+### 4.5 Visual direction: "Figure 1" (see §2.6)
 
-A look of its own, so it is not a recolour of Ravi's site. The graphic
-language is the language of ML work: plots, axes, tick marks, confidence
-bands and annotations.
-
-- **Surfaces:** warm paper (light) and graphite (dark), with a toggle. Same
-  approach as Ravi's because it tested well, but a different palette and type.
-- **Type:** a sharp grotesk for headings (e.g. *Instrument Sans* / *Geist*)
-  and a mono for numbers and annotations (*JetBrains Mono*). No Fraunces, so
-  the two sites stay distinct.
-- **Accent:** one signal colour (e.g. a saturated vermilion or electric teal)
-  used for the metric that matters on each chart.
-- **Live background: "attention field".** A sparse grid of token dots. The
-  pointer acts as a query, and nearby dots draw faint attention lines to it,
-  weighted by distance. The first 4 dots are *sinks* and always draw some
-  attention. Subtle, on theme, off under `prefers-reduced-motion`. Built on
-  Ravi's `LiveField` engine.
-- **Motion:** reveal-on-scroll, chart lines that draw in, pointer cursor
-  states. Reused from Ravi's `motion/` module and retuned.
+- **Grammar:** numbered figures with mono captions ("Fig. 2 — Decode latency
+  vs context"), axis ticks, confidence bands, margin notes on wide screens.
+  Every chart is real data. The accent colour always marks *Rahul's result*;
+  baselines are neutral ink.
+- **Type:** *Geist* for headings and UI (large, tight, confident), *Geist
+  Mono* for numbers, labels and captions, *Source Serif 4* for long-form
+  worklog body text (Distill lineage, readable). No Fraunces.
+- **Colour:** light = cool off-white paper + near-black ink; dark = graphite +
+  warm white. A single vermilion accent, plus one muted blue for a second
+  series. Hairline rules and a faint baseline grid.
+- **Live background, "attention field":** a sparse field of token dots behind
+  the hero. The pointer is the query: nearby dots draw faint attention lines to
+  it, and four fixed *sink* dots at the top-left always take a share. It
+  explains attention sinks without words. Canvas, ~2 KB, paused off-screen,
+  disabled under reduced motion.
+- **Motion:** content first, no intro animation; restrained reveal-on-scroll;
+  chart lines draw in once; explorer transitions tied to the slider.
+- **Theme:** light/dark toggle with a no-flash inline script.
 
 ### 4.6 Copy rules
 
@@ -268,9 +310,8 @@ bands and annotations.
   TypeScript + react-router 7, the same stack as Ravi's site. Remove MUI,
   Bootstrap, react-spring and the other unused dependencies. Old components
   are deleted; history stays in git.
-- Port from Ravi's codebase: theme toggle and no-flash script, `RoleContext`
-  → `LensContext`, reveal/cursor/smooth-scroll motion, `LiveField` engine. All
-  content and design tokens are new.
+- Written fresh (small, no animation libraries). Only the no-flash theme
+  pattern is borrowed from Ravi's site.
 - Content lives in typed data files (`src/data/*.ts`). Charts are hand-built
   SVG (no chart library), so they render crisply in both themes.
 - SEO/sharing: per-lens `<title>`/description, JSON-LD `Person`, OG image.
@@ -282,20 +323,18 @@ bands and annotations.
 
 ### 4.8 Execution order
 
-1. Scaffold the new stack, port engine pieces, add design tokens and theme. *(commit)*
+1. Scaffold the new stack, design tokens, theme. *(commit)*
 2. Data model + all content from the resume and READMEs. *(commit)*
-3. Home page with lenses, hero, selected work, more work, contact. *(commit)*
-4. Case-study template + 4 deep cases + figures. *(commit)*
+3. Home page: hero + attention field, selected work, more work, experience, contact. *(commit)*
+4. Case-study template + 5 deep cases + figures. *(commit)*
 5. KV-cache explorer. *(commit)*
-6. Notes: 2 worklogs adapted from the READMEs. *(commit)*
-7. About/timeline, 404, SEO/OG, deploy config. *(commit)*
+6. 404, SEO/OG, deploy config. *(commit)*
 8. QA: build, mobile widths, both themes, reduced motion, keyboard, Lighthouse. Fix. *(commit)*
 
 ### 4.9 Measuring ROI after launch
 
-Send lens-specific links in applications (`/applied?src=<company>` style).
-Optional Vercel Web Analytics tracks resume clicks and email copies per lens
-as intent signals. The real metric is interview conversations per application
+Send links with a source tag in applications (`/?src=<company>`). Optional
+Vercel Web Analytics tracks resume clicks and email copies as intent signals. The real metric is interview conversations per application
 batch, compared with applications sent with the resume alone.
 
 ## Sources
@@ -318,3 +357,11 @@ batch, compared with applications sent with the resume alone.
 - [D2] Towards AI, ML portfolio on HF Spaces — https://towardsai.com/p/l/build-your-machine-learning-portfolio-using-hugging-face-spaces
 - Eye-tracking caveats (7.4 s, 2018 Ladders; 11.2 s, 2025 InterviewPal) — https://standout-cv.com/?p=4368 · https://www.interviewpal.com/blog/how-long-recruiters-actually-spend-reading-your-resume-data-study
 - Eugene Yan, "Why have a data science portfolio and what it shows" — https://eugeneyan.com/writing/data-science-portfolio-how-why-what/
+- [G1] Distill journal — https://distill.pub/journal/ · Nature on Distill — https://blogs.nature.com/naturejobs/2018/04/16/machine-learning-gets-a-journal-for-interactive-figures/
+- [G2] Hohman et al., "Communicating with Interactive Articles", Distill 2020 — https://distill.pub/2020/communicating-with-interactive-articles/
+- [G3] Transformer Circuits Thread — https://transformer-circuits.pub · Simon Willison on its format — https://simonwillison.net/b/8598
+- [G4] FlowingData on Ciechanowski — https://flowingdata.com/tag/bartosz-ciechanowski
+- [G5] Bret Victor, Explorable Explanations — https://worrydream.com/ExplorableExplanations/
+- [G6] Line25, Web design trends 2026 — https://line25.com/articles/web-design-trends-2026/
+- [G7] DesignRush, "Polished is the new generic" — https://www.designrush.com/trends/design-trends
+- [G8] Best developer portfolios and why they work — https://dev.to/jtrevdev/best-developer-portfolio-websites-and-why-they-work-3bdk
