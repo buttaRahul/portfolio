@@ -10,7 +10,7 @@ import { useEffect, useRef } from "react";
 
 export const HYPERSPACE_EVENT = "hyperspace";
 
-type Star = { x: number; y: number; z: number; pz: number; tint: number };
+type Star = { x: number; y: number; z: number; pz: number; tint: number; /** 0..1: low values are hidden behind text */ keep: number };
 
 const IDLE_SPEED = 0.03; // depth units per second: slow enough not to pull the eye
 const JUMP_SPEED = 1.6;
@@ -54,6 +54,7 @@ export function Starfield() {
       s.z = far ? DEPTH * (0.6 + Math.random() * 0.4) : Math.random() * DEPTH;
       s.pz = s.z;
       s.tint = Math.random();
+      s.keep = Math.random();
     };
 
     const layout = () => {
@@ -72,7 +73,7 @@ export function Starfield() {
       colL = rect ? rect.left : w * 0.12;
       colR = rect ? rect.right : w * 0.88;
       stars = Array.from({ length: count }, () => {
-        const s = { x: 0, y: 0, z: 0, pz: 0, tint: 0 };
+        const s = { x: 0, y: 0, z: 0, pz: 0, tint: 0, keep: 0 };
         spawn(s, false);
         return s;
       });
@@ -105,6 +106,11 @@ export function Starfield() {
         const near = 1 - s.z / DEPTH;
         // Dim stars that pass behind the text column, with soft 80px edges.
         const edge = Math.min(p.x - colL, colR - p.x);
+        // Behind the text column only about a third of the stars are drawn
+        // (more over the hero), fading in toward the column edges.
+        const inside = edge <= 0 ? 0 : Math.min(1, edge / 80);
+        const share = window.scrollY < h * 0.6 ? 0.5 : 0.33;
+        if (inside > 0 && s.keep > share + (1 - share) * (1 - inside)) continue;
         const calm = edge <= 0 ? 1 : edge >= 80 ? calmMin : 1 - (edge / 80) * (1 - calmMin);
         const alpha = Math.min(0.8, 0.12 + near * 0.85) * calm * palette.gain;
         const col = s.tint > 0.92 ? palette.cool : s.tint < 0.05 ? palette.warm : palette.base;

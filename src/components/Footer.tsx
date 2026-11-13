@@ -7,7 +7,6 @@ export function Footer() {
         <span>
           © {new Date().getFullYear()} {site.name}
         </span>
-        <span>Every number on this site comes from the resume or a public README. Charts are drawn from the measured values.</span>
       </div>
     </footer>
   );
