@@ -23,7 +23,7 @@
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#05070C" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -50,6 +50,16 @@
           "XGBoost", "PyTorch", "Triton", "KV cache", "Distributed training", "LoRA"
         ]
       }
+    </script>
+    <script>
+      // Space is the default look; a saved choice from the header toggle wins.
+      // Mirrors src/lib/theme.ts.
+      (function () {
+        try {
+          var stored = localStorage.getItem("ra-theme");
+          if (stored === "light" || stored === "dark") document.documentElement.dataset.theme = stored;
+        } catch (e) {}
+      })();
     </script>
   </head>
   <body>

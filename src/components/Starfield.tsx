@@ -38,6 +38,14 @@ export function Starfield() {
     let colL = 0;
     let colR = 0;
     const vp = { x: 0, y: 0 };
+    // Dark: white stars with a few blue and warm ones. Light: ink particles with blue and crimson.
+    let palette = { base: "255 255 255", cool: "170 200 255", warm: "255 205 190", gain: 1 };
+    const readTheme = () => {
+      const light = document.documentElement.dataset.theme === "light";
+      palette = light
+        ? { base: "20 28 45", cool: "47 98 217", warm: "224 20 60", gain: 0.55 }
+        : { base: "255 255 255", cool: "170 200 255", warm: "255 205 190", gain: 1 };
+    };
     const vpTarget = { x: 0, y: 0 };
 
     const spawn = (s: Star, far: boolean) => {
@@ -98,8 +106,8 @@ export function Starfield() {
         // Dim stars that pass behind the text column, with soft 80px edges.
         const edge = Math.min(p.x - colL, colR - p.x);
         const calm = edge <= 0 ? 1 : edge >= 80 ? calmMin : 1 - (edge / 80) * (1 - calmMin);
-        const alpha = Math.min(0.8, 0.12 + near * 0.85) * calm;
-        const col = s.tint > 0.92 ? "170 200 255" : s.tint < 0.05 ? "255 205 190" : "255 255 255";
+        const alpha = Math.min(0.8, 0.12 + near * 0.85) * calm * palette.gain;
+        const col = s.tint > 0.92 ? palette.cool : s.tint < 0.05 ? palette.warm : palette.base;
         if (streak > 0.04) {
           const q = project(s, Math.min(DEPTH, s.pz + streak * 0.08));
           ctx.strokeStyle = `rgb(${col} / ${alpha})`;
@@ -160,9 +168,15 @@ export function Starfield() {
       if (reduced) draw(0);
     };
 
+    readTheme();
     layout();
     if (reduced) draw(0);
     else start();
+    const mo = new MutationObserver(() => {
+      readTheme();
+      if (reduced) draw(0);
+    });
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     const onVis = () => !document.hidden && start();
     window.addEventListener("resize", onResize);
@@ -172,6 +186,7 @@ export function Starfield() {
 
     return () => {
       cancelAnimationFrame(raf);
+      mo.disconnect();
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVis);
       window.removeEventListener("pointermove", onPointer);

@@ -9,10 +9,10 @@
   --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
 
-  --bg: #f7f8fa;
-  --bg-alt: #eef1f5;
-  --bg-raised: #ffffff;
-  --bg-sunk: #eceff3;
+  --bg: #f4f6f9;
+  --bg-alt: rgb(232 236 243 / 0.55);
+  --bg-raised: rgb(255 255 255 / 0.82);
+  --bg-sunk: rgb(226 231 238 / 0.7);
   --ink: #0d1016;
   --ink-2: #394150;
   --ink-3: #657083;
@@ -40,8 +40,7 @@
   color-scheme: light;
 }
 
-:root[data-theme="dark"],
-.force-dark {
+:root[data-theme="dark"] {
   --bg: #05070c;
   --bg-alt: rgb(14 18 28 / 0.5);
   --bg-raised: rgb(16 20 30 / 0.78);
@@ -2687,18 +2686,14 @@ a.mini-card:hover {
    v3: deep-space hero (dark in both themes), header floating over it
    ========================================================================== */
 
-.force-dark {
-  color: var(--ink);
-}
-
-.hero.force-dark {
+.hero {
   margin-top: -64px;
   padding-top: 64px;
   background: transparent;
   border-bottom: 0;
 }
 
-.hero.force-dark .proof {
+.hero .proof {
   border-top-color: var(--rule-strong);
 }
 
@@ -2767,6 +2762,15 @@ a.mini-card:hover {
 
 body {
   background:
+    radial-gradient(60% 50% at 82% 8%, rgb(47 98 217 / 0.08), transparent 70%),
+    radial-gradient(50% 45% at 8% 92%, rgb(224 20 60 / 0.05), transparent 70%),
+    linear-gradient(180deg, #eef2f8 0%, #f4f6f9 60%);
+  background-color: #f4f6f9;
+  background-attachment: fixed;
+}
+
+:root[data-theme="dark"] body {
+  background:
     radial-gradient(60% 50% at 82% 8%, rgb(92 134 240 / 0.11), transparent 70%),
     radial-gradient(50% 45% at 8% 92%, rgb(240 64 95 / 0.07), transparent 70%),
     radial-gradient(120% 80% at 50% 0%, #0b1020 0%, #05070c 65%);
@@ -2782,6 +2786,10 @@ body {
 }
 
 .site-header {
+  background: rgb(244 246 249 / 0.78);
+}
+
+:root[data-theme="dark"] .site-header {
   background: rgb(5 7 12 / 0.72);
 }
 
@@ -2805,15 +2813,19 @@ body {
 }
 
 .tooltip {
+  background: rgb(255 255 255 / 0.97);
+}
+
+:root[data-theme="dark"] .tooltip {
   background: rgb(12 15 23 / 0.96);
 }
 
-.sec-n {
+:root[data-theme="dark"] .sec-n {
   box-shadow: 0 0 14px rgb(255 255 255 / 0.25);
 }
 
-.prose pre,
-code {
+:root[data-theme="dark"] .prose pre,
+:root[data-theme="dark"] code {
   background: rgb(3 4 8 / 0.6);
 }
 

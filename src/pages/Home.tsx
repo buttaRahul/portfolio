@@ -54,7 +54,7 @@ export function Home() {
   return (
     <main id="main">
       {/* ---------------- Hero ---------------- */}
-      <section className="hero force-dark" aria-labelledby="hero-title">
+      <section className="hero" aria-labelledby="hero-title">
         <div className="wrap hero-inner">
           <div className="hero-id">
             <span className="name">{site.name}</span>

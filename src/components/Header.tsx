@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { RESUME_HREF, site } from "../data/site";
 import { useScrolled } from "../lib/hooks";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function BrandMark() {
   return (
@@ -25,7 +26,7 @@ export function Header() {
   // On the home page, before scrolling, the header floats over the space hero.
   const overSpace = pathname === "/" && !scrolled;
   return (
-    <header className={`site-header${overSpace ? " over-space force-dark" : ""}`} data-scrolled={scrolled}>
+    <header className={`site-header${overSpace ? " over-space" : ""}`} data-scrolled={scrolled}>
       <div className="wrap">
         <Link to="/" className="brand" aria-label={`${site.name}, home`}>
           <BrandMark />
@@ -44,6 +45,7 @@ export function Header() {
           <Link className="nav-link" to="/#contact">
             Contact
           </Link>
+          <ThemeToggle />
           <a className="btn btn-sm btn-solid" href={RESUME_HREF} target="_blank" rel="noreferrer">
             Resume
           </a>
