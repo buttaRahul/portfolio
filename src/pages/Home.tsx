@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AttentionField } from "../components/AttentionField";
+import { HYPERSPACE_EVENT, Starfield } from "../components/Starfield";
 import { CopyEmail } from "../components/CopyEmail";
 import { KVExplorer } from "../components/KVExplorer";
 import { RESUME_HREF, education, experience, proof, publication, site } from "../data/site";
@@ -15,14 +15,25 @@ function SectionLabel({ n, children }: { n: string; children: string }) {
   );
 }
 
+/** Hyperspace jump in the hero, then scroll to the work. */
+function jumpToWork(e: React.MouseEvent<HTMLAnchorElement>) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  e.preventDefault();
+  window.dispatchEvent(new Event(HYPERSPACE_EVENT));
+  window.setTimeout(() => {
+    document.getElementById("work")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", "#work");
+  }, 520);
+}
+
 export function Home() {
   useReveal("home");
 
   return (
     <main id="main">
       {/* ---------------- Hero ---------------- */}
-      <section className="hero" aria-labelledby="hero-title">
-        <AttentionField />
+      <section className="hero force-dark" aria-labelledby="hero-title">
+        <Starfield />
         <div className="wrap hero-inner">
           <div className="hero-id">
             <span className="name">{site.name}</span>
@@ -36,7 +47,7 @@ export function Home() {
           </h1>
           <p className="lede">{site.focus}</p>
           <div className="hero-actions">
-            <a className="btn btn-solid" href="#work">
+            <a className="btn btn-solid" href="#work" onClick={jumpToWork}>
               See the work
             </a>
             <a className="btn" href={RESUME_HREF} target="_blank" rel="noreferrer">
@@ -70,49 +81,32 @@ export function Home() {
           <h2 id="work-title" className="band-title">
             Five projects, each with how it was checked.
           </h2>
-          <ul className="cards">
+          <ol className="work-list">
             {work.map((w, i) => (
-              <li key={w.slug} className={i === 0 ? "card-wide" : undefined} data-reveal>
-                <Link className="card" to={`/work/${w.slug}`}>
-                  <span className="card-top">
-                    <span className="kicker">{w.org}</span>
-                    <span className="tag">{w.area.split(" · ")[0]}</span>
-                  </span>
-                  <span className="card-title">{w.cardTitle ?? w.title}</span>
-                  <span className="card-metric">
+              <li className="work-row" key={w.slug} data-reveal>
+                <Link to={`/work/${w.slug}`}>
+                  <span className="idx">{String(i + 1).padStart(2, "0")}</span>
+                  <div>
+                    <div className="meta">
+                      <span className="kicker">{w.org}</span>
+                      <span className="tag">{w.area.split(" · ")[0]}</span>
+                    </div>
+                    <h3>
+                      {w.cardTitle ?? w.title}
+                      <span className="arrow" aria-hidden="true">
+                        →
+                      </span>
+                    </h3>
+                    <p className="short">{w.short}</p>
+                  </div>
+                  <div className="metric">
                     <span className="value">{w.metric.value}</span>
                     <span className="label">{w.metric.label}</span>
-                  </span>
-                  {i === 0 && (
-                    <span className="card-viz" aria-hidden="true">
-                      <span>Supplier ranking · top 5% shown</span>
-                      <span className="viz-track">
-                        <span className="b2" style={{ width: "60%" }} />
-                        <span className="b1" style={{ width: "10.6%" }} />
-                      </span>
-                      <span className="viz-scale">
-                        <span style={{ left: "10.6%" }}>0.53%</span>
-                        <span style={{ left: "60%" }}>3%</span>
-                        <span style={{ left: "100%" }}>5%</span>
-                      </span>
-                      <span className="viz-key">
-                        <span>
-                          <i style={{ background: "var(--s1)" }} />5 / 5 later OIG exclusions
-                        </span>
-                        <span>
-                          <i style={{ background: "repeating-linear-gradient(135deg, var(--s1) 0 2px, transparent 2px 4px)" }} />
-                          held-out fraud, median rank 1
-                        </span>
-                      </span>
-                    </span>
-                  )}
-                  <span className="card-go" aria-hidden="true">
-                    {w.kind === "worklog" ? "Read the worklog" : "Read the case study"} →
-                  </span>
+                  </div>
                 </Link>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </section>
 

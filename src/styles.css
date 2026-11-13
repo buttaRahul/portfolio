@@ -40,7 +40,8 @@
   color-scheme: light;
 }
 
-:root[data-theme="dark"] {
+:root[data-theme="dark"],
+.force-dark {
   --bg: #0b0d12;
   --bg-alt: #10131a;
   --bg-raised: #131720;
@@ -2589,8 +2590,8 @@ a.mini-card:hover {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  html.laser,
-  html.laser * {
+  html.saber,
+  html.saber * {
     cursor: none !important;
   }
 }
@@ -2679,5 +2680,86 @@ a.mini-card:hover {
 @media (max-width: 960px) {
   .card-wide .card {
     display: flex;
+  }
+}
+
+/* ==========================================================================
+   v3: deep-space hero (dark in both themes), header floating over it
+   ========================================================================== */
+
+.force-dark {
+  color: var(--ink);
+}
+
+.hero.force-dark {
+  margin-top: -64px;
+  padding-top: 64px;
+  background:
+    radial-gradient(60% 70% at 78% 30%, rgb(92 134 240 / 0.14), transparent 70%),
+    radial-gradient(45% 55% at 92% 85%, rgb(240 64 95 / 0.12), transparent 70%),
+    radial-gradient(120% 90% at 50% 0%, #0d1220 0%, #05070c 70%);
+  border-bottom: 0;
+}
+
+.hero.force-dark .proof {
+  border-top-color: var(--rule-strong);
+}
+
+.site-header.over-space {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+
+.site-header.over-space .brand,
+.site-header.over-space .nav a.nav-link {
+  color: var(--ink);
+}
+
+.site-header.over-space .nav a.nav-link:hover {
+  background: rgb(255 255 255 / 0.08);
+}
+
+/* Project rows: clearer separation, less text */
+.work-list {
+  display: grid;
+  gap: 12px;
+}
+
+.work-row {
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: var(--bg-raised);
+  transition: border-color 0.2s, transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.work-row:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.work-row a {
+  padding: 26px 28px;
+}
+
+.work-row a::before {
+  display: none;
+}
+
+.work-row .idx {
+  font-size: 15px;
+  color: var(--accent-text);
+}
+
+.work-row .meta {
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 900px) {
+  .work-row a {
+    padding: 22px 20px;
   }
 }
