@@ -28,17 +28,17 @@ export type ProofMetric = {
 export const proof: ProofMetric[] = [
   {
     value: "5 of 5",
-    label: "suppliers the HHS-OIG later excluded were already in my fraud model's top 0.53% risk tier",
+    label: "later HHS-OIG fraud exclusions were already in my model's top 0.53%",
     slug: "fraud-detection-without-labels",
   },
   {
     value: "+6.3%",
-    label: "perplexity vs a full KV cache over 40K tokens, at constant memory, from my attention-sink cache",
+    label: "perplexity vs a full KV cache, at constant memory",
     slug: "attention-sinks",
   },
   {
     value: "85–89%",
-    label: "of peak DRAM bandwidth from my fused RMSNorm Triton kernel: the copy ceiling",
+    label: "of peak GPU bandwidth from my fused Triton kernel",
     slug: "fused-rmsnorm-triton",
   },
 ];

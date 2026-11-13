@@ -42,7 +42,7 @@ export function AttentionField() {
     let w = 0;
     let h = 0;
     let dots: Dot[] = [];
-    let colors = { line: "18 19 22", accent: "#d9472b" };
+    let colors = { line: "18 19 22", accent: "#e0143c" };
     const q = { x: 0, y: 0 };
     const target = { x: 0, y: 0 };
     let lastPointer = -Infinity;
@@ -54,7 +54,7 @@ export function AttentionField() {
       const cs = getComputedStyle(document.documentElement);
       colors = {
         line: cs.getPropertyValue("--field-line").trim() || "18 19 22",
-        accent: cs.getPropertyValue("--accent").trim() || "#d9472b",
+        accent: cs.getPropertyValue("--accent").trim() || "#e0143c",
       };
     };
 
@@ -90,6 +90,7 @@ export function AttentionField() {
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
+      const pointerActive = performance.now() - lastPointer < 2500;
       const r2 = RADIUS * RADIUS;
       const twoSig2 = 2 * SIGMA * SIGMA;
 
@@ -152,7 +153,11 @@ export function AttentionField() {
         ctx.fill();
       }
 
-      // The query itself.
+      // The query itself; with a live pointer the laser cursor is the query.
+      if (pointerActive) {
+        ctx.globalAlpha = 1;
+        return;
+      }
       ctx.globalAlpha = 1;
       ctx.fillStyle = colors.accent;
       ctx.beginPath();
@@ -174,8 +179,9 @@ export function AttentionField() {
         target.x = w * (0.66 + 0.2 * Math.sin(t * 0.21));
         target.y = h * (0.45 + 0.28 * Math.sin(t * 0.33 + 1.2));
       }
-      q.x += (target.x - q.x) * 0.08;
-      q.y += (target.y - q.y) * 0.08;
+      const k = now - lastPointer < 2500 ? 0.35 : 0.08;
+      q.x += (target.x - q.x) * k;
+      q.y += (target.y - q.y) * k;
       draw();
       raf = requestAnimationFrame(frame);
     };

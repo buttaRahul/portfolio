@@ -1,31 +1,17 @@
 import { Link } from "react-router-dom";
 import { AttentionField } from "../components/AttentionField";
 import { CopyEmail } from "../components/CopyEmail";
-import { Figure } from "../components/Figures";
 import { KVExplorer } from "../components/KVExplorer";
-import { RESUME_HREF, education, experience, proof, publication, site, toolkit } from "../data/site";
+import { RESUME_HREF, education, experience, proof, publication, site } from "../data/site";
 import { alsoBuilt, moreWork, work } from "../data/work";
-import type { CompactItem } from "../data/types";
 import { useReveal } from "../lib/hooks";
 
-function Compact({ items }: { items: CompactItem[] }) {
+function SectionLabel({ n, children }: { n: string; children: string }) {
   return (
-    <ul className="compact">
-      {items.map((it) => (
-        <li key={it.title} data-reveal>
-          <span className="c-meta">
-            {it.org} · {it.year}
-          </span>
-          <h3>{it.title}</h3>
-          <p>{it.text}</p>
-          {it.href && (
-            <a className="c-link" href={it.href} target="_blank" rel="noreferrer">
-              {it.linkLabel ?? "Link"} ↗
-            </a>
-          )}
-        </li>
-      ))}
-    </ul>
+    <div className="sec-label">
+      <span className="sec-n">{n}</span>
+      <span className="sec-t">{children}</span>
+    </div>
   );
 }
 
@@ -34,6 +20,7 @@ export function Home() {
 
   return (
     <main id="main">
+      {/* ---------------- Hero ---------------- */}
       <section className="hero" aria-labelledby="hero-title">
         <AttentionField />
         <div className="wrap hero-inner">
@@ -47,13 +34,10 @@ export function Home() {
             I build ML that holds up in production,{" "}
             <span className="soft">and go down to the kernel when that's what it takes.</span>
           </h1>
-          <p className="lede">
-            Core ML, deep learning and ML systems: fraud and risk models on Medicare claims, LoRA training across multi-GPU nodes, Triton kernels
-            and KV caches. Every project here says how it was checked, and every number comes with its measurement.
-          </p>
+          <p className="lede">{site.focus}</p>
           <div className="hero-actions">
             <a className="btn btn-solid" href="#work">
-              Selected work
+              See the work
             </a>
             <a className="btn" href={RESUME_HREF} target="_blank" rel="noreferrer">
               Resume (PDF)
@@ -66,171 +50,188 @@ export function Home() {
           <div className="proof">
             {proof.map((p) => (
               <Link key={p.slug} to={`/work/${p.slug}`}>
-                <span className="value">{p.value}</span>
+                <span className="value">
+                  {p.value}
+                  <span className="go" aria-hidden="true">
+                    ↗
+                  </span>
+                </span>
                 <span className="label">{p.label}</span>
-                <span className="src">See how it was measured →</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section wrap" id="work" aria-labelledby="work-title">
-        <div className="section-head">
-          <div>
-            <h2 id="work-title">Selected work</h2>
-            <p>Five projects, each written up with the problem, what I built, how it was validated, and where it falls short.</p>
-          </div>
-          <span className="kicker">{work.length} case studies</span>
-        </div>
-        <ol className="work-list">
-          {work.map((w, i) => (
-            <li className="work-row" key={w.slug} data-reveal>
-              <Link to={`/work/${w.slug}`}>
-                <span className="idx">{String(i + 1).padStart(2, "0")}</span>
-                <div>
-                  <div className="meta">
+      {/* ---------------- 01 Work ---------------- */}
+      <section className="band" id="work" aria-labelledby="work-title">
+        <div className="wrap">
+          <SectionLabel n="01">Selected work</SectionLabel>
+          <h2 id="work-title" className="band-title">
+            Five projects, each with how it was checked.
+          </h2>
+          <ul className="cards">
+            {work.map((w, i) => (
+              <li key={w.slug} className={i === 0 ? "card-wide" : undefined} data-reveal>
+                <Link className="card" to={`/work/${w.slug}`}>
+                  <span className="card-top">
                     <span className="kicker">{w.org}</span>
-                    <span className="kicker">{w.period}</span>
-                    <span className="kicker">{w.area}</span>
-                  </div>
-                  <h3>
-                    {w.title}
-                    <span className="arrow" aria-hidden="true">
-                      →
+                    <span className="tag">{w.area.split(" · ")[0]}</span>
+                  </span>
+                  <span className="card-title">{w.cardTitle ?? w.title}</span>
+                  <span className="card-metric">
+                    <span className="value">{w.metric.value}</span>
+                    <span className="label">{w.metric.label}</span>
+                  </span>
+                  {i === 0 && (
+                    <span className="card-viz" aria-hidden="true">
+                      <span>Supplier ranking · top 5% shown</span>
+                      <span className="viz-track">
+                        <span className="b2" style={{ width: "60%" }} />
+                        <span className="b1" style={{ width: "10.6%" }} />
+                      </span>
+                      <span className="viz-scale">
+                        <span style={{ left: "10.6%" }}>0.53%</span>
+                        <span style={{ left: "60%" }}>3%</span>
+                        <span style={{ left: "100%" }}>5%</span>
+                      </span>
+                      <span className="viz-key">
+                        <span>
+                          <i style={{ background: "var(--s1)" }} />5 / 5 later OIG exclusions
+                        </span>
+                        <span>
+                          <i style={{ background: "repeating-linear-gradient(135deg, var(--s1) 0 2px, transparent 2px 4px)" }} />
+                          held-out fraud, median rank 1
+                        </span>
+                      </span>
                     </span>
-                  </h3>
-                  <p className="short">{w.short}</p>
-                  <p className="checked">
-                    <b>Checked</b>
-                    {w.checked}
-                  </p>
-                </div>
-                <div className="metric">
-                  <span className="value">{w.metric.value}</span>
-                  <span className="label">{w.metric.label}</span>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ol>
+                  )}
+                  <span className="card-go" aria-hidden="true">
+                    {w.kind === "worklog" ? "Read the worklog" : "Read the case study"} →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
-      <section className="section wrap" id="explorer" aria-labelledby="explorer-title">
-        <div className="section-head">
-          <div>
-            <h2 id="explorer-title">The memory wall, measured</h2>
-            <p>
-              Grow the context and watch what a full KV cache costs against my attention-sink cache. Every dot is a measurement from the{" "}
-              <Link to="/work/attention-sinks">attention-sinks worklog</Link>.
-            </p>
-          </div>
-          <span className="kicker">Interactive</span>
+      {/* ---------------- 02 KV-cache explorer ---------------- */}
+      <section className="band band-alt" id="explorer" aria-labelledby="explorer-title">
+        <div className="wrap">
+          <SectionLabel n="02">KV-cache explorer</SectionLabel>
+          <h2 id="explorer-title" className="band-title">
+            The memory wall, measured. <span className="soft">Drag the slider.</span>
+          </h2>
+          <KVExplorer heading />
+          <p className="band-foot">
+            Every dot is a measurement from my{" "}
+            <Link to="/work/attention-sinks">attention-sinks worklog</Link>. Lines between points are straight; anything past the last
+            measurement is marked as not measured.
+          </p>
         </div>
-        <Figure
-          n={1}
-          title="Full cache vs sink cache, as the context grows"
-          caption="Qwen3-0.6B, bf16, RTX 4060 Laptop 8 GB, PG19 streamed one token at a time. Lines between measured points are drawn straight; values past the last measurement are marked as not measured."
-        >
-          <KVExplorer />
-        </Figure>
       </section>
 
-      <section className="section wrap" id="more" aria-labelledby="more-title">
-        <div className="section-head">
-          <div>
-            <h2 id="more-title">More work</h2>
-            <p>Shorter notes on the rest, with the key number for each.</p>
+      {/* ---------------- 03 More work ---------------- */}
+      <section className="band" id="more" aria-labelledby="more-title">
+        <div className="wrap">
+          <SectionLabel n="03">More work</SectionLabel>
+          <h2 id="more-title" className="sr-only">
+            More work
+          </h2>
+          <ul className="rows">
+            {moreWork.map((it) => (
+              <li key={it.title} data-reveal>
+                <span className="r-title">
+                  {it.href ? (
+                    <a href={it.href} target="_blank" rel="noreferrer">
+                      {it.title} ↗
+                    </a>
+                  ) : (
+                    it.title
+                  )}
+                </span>
+                <span className="r-stat">{it.stat}</span>
+                <span className="r-meta mono">
+                  {it.org} · {it.year}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div className="chips-row">
+            <span className="kicker">Also built</span>
+            <ul className="chips">
+              {alsoBuilt.map((it) => (
+                <li key={it.title}>
+                  {it.href ? (
+                    <a href={it.href} target="_blank" rel="noreferrer" title={it.text}>
+                      {it.title}
+                    </a>
+                  ) : (
+                    <span title={it.text}>{it.title}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <Compact items={moreWork} />
-        <div className="subhead">
-          <h3>Also built</h3>
-          <p>LLM applications and agents</p>
-        </div>
-        <Compact items={alsoBuilt} />
       </section>
 
-      <section className="section wrap" id="experience" aria-labelledby="exp-title">
-        <div className="section-head">
-          <div>
-            <h2 id="exp-title">Experience</h2>
-          </div>
-        </div>
-        <ol className="timeline">
-          {experience.map((r) => (
-            <li key={r.org + r.period} data-reveal>
-              <span className="when">{r.period}</span>
-              <div>
-                <h3>
+      {/* ---------------- 04 Experience ---------------- */}
+      <section className="band band-alt" id="experience" aria-labelledby="exp-title">
+        <div className="wrap">
+          <SectionLabel n="04">Experience</SectionLabel>
+          <h2 id="exp-title" className="sr-only">
+            Experience
+          </h2>
+          <ol className="rows exp">
+            {experience.map((r) => (
+              <li key={r.org + r.period} data-reveal>
+                <span className="r-title">
                   {r.org}
                   {r.orgNote && <span className="org-note"> · {r.orgNote}</span>}
-                </h3>
-                <span className="title">
-                  {r.title} · {r.place}
                 </span>
-                <p className="sum">{r.summary}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
-        <div className="facts">
-          <div className="fact" data-reveal>
-            <span className="kicker">Publication</span>
-            <h3>
-              <a href={publication.href} target="_blank" rel="noreferrer">
-                {publication.title}
-              </a>
-            </h3>
-            <p>
-              {publication.authors} {publication.venue}
-            </p>
-            <span className="badge">★ {publication.award}</span>
-          </div>
-          <div className="fact" data-reveal>
-            <span className="kicker">Education</span>
-            <h3>{education.school}</h3>
-            <p>
-              {education.degree} · {education.period}
-            </p>
-          </div>
-        </div>
-
-        <div className="fact" style={{ marginTop: 8 }} data-reveal>
-          <span className="kicker">Tools I've used in the work above</span>
-          <dl className="toolkit" style={{ marginTop: 12 }}>
-            {toolkit.map((t) => (
-              <div key={t.area} style={{ display: "contents" }}>
-                <dt>{t.area}</dt>
-                <dd>{t.items}</dd>
-              </div>
+                <span className="r-stat">{r.title}</span>
+                <span className="r-meta mono">{r.period}</span>
+              </li>
             ))}
-          </dl>
+          </ol>
+          <div className="mini-cards">
+            <a className="mini-card" href={publication.href} target="_blank" rel="noreferrer" data-reveal>
+              <span className="kicker">Publication · {publication.venue.split(",")[0]}</span>
+              <span className="mini-title">QueryAssist: verbal specifications to SQL</span>
+              <span className="badge">★ {publication.award}</span>
+            </a>
+            <div className="mini-card" data-reveal>
+              <span className="kicker">Education · {education.period}</span>
+              <span className="mini-title">IIIT Pune</span>
+              <span className="mini-sub">{education.degree}</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="contact wrap" id="contact" aria-labelledby="contact-title">
-        <span className="kicker">Contact</span>
-        <h2 id="contact-title" style={{ marginTop: 14 }}>
-          Hiring for ML, deep learning or ML systems? Let's talk.
-        </h2>
-        <p className="lede">I'm looking for Senior / ML Engineer II–III roles. The fastest way to reach me is email.</p>
-        <div className="email-row">
-          <a className="email" href={`mailto:${site.email}`}>
-            {site.email}
-          </a>
-          <CopyEmail email={site.email} />
-          <a className="btn btn-sm" href={RESUME_HREF} target="_blank" rel="noreferrer">
-            Resume (PDF)
-          </a>
-        </div>
-        <div className="link-row">
-          {site.links.map((l) => (
-            <a key={l.label} href={l.href} target="_blank" rel="noreferrer">
-              {l.label} ↗
+      {/* ---------------- 05 Contact ---------------- */}
+      <section className="band contact" id="contact" aria-labelledby="contact-title">
+        <div className="wrap">
+          <SectionLabel n="05">Contact</SectionLabel>
+          <h2 id="contact-title">Hiring for ML, deep learning or ML systems? Let's talk.</h2>
+          <div className="email-row">
+            <a className="email" href={`mailto:${site.email}`}>
+              {site.email}
             </a>
-          ))}
+            <CopyEmail email={site.email} />
+            <a className="btn btn-sm" href={RESUME_HREF} target="_blank" rel="noreferrer">
+              Resume (PDF)
+            </a>
+          </div>
+          <div className="link-row">
+            {site.links.map((l) => (
+              <a key={l.label} href={l.href} target="_blank" rel="noreferrer">
+                {l.label} ↗
+              </a>
+            ))}
+          </div>
         </div>
       </section>
     </main>

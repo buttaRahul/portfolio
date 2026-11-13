@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { LaserPointer } from "./components/LaserPointer";
 import { site } from "./data/site";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <LaserPointer />
     </>
   );
 }

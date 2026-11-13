@@ -32,6 +32,8 @@ export type Work = {
   period: string;
   area: string;
   title: string;
+  /** Shorter title for the home card, if the full one is long. */
+  cardTitle?: string;
   /** One line for the home list. */
   short: string;
   dek: string;
@@ -49,6 +51,8 @@ export type CompactItem = {
   org: string;
   year: string;
   text: string;
+  /** One short number or fact shown on the home list. */
+  stat?: string;
   href?: string;
   linkLabel?: string;
 };

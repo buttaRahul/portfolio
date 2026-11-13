@@ -51,7 +51,7 @@ function statusText(...rs: Reading[]) {
   return "";
 }
 
-export function KVExplorer() {
+export function KVExplorer({ heading = false }: { heading?: boolean }) {
   const [t, setT] = useState(16384);
   const [playing, setPlaying] = useState(false);
   const raf = useRef<number | null>(null);
@@ -96,6 +96,16 @@ export function KVExplorer() {
 
   return (
     <div className="explorer">
+      {heading && (
+        <div className="ex-head">
+          <div>
+            <span className="kicker">Interactive · measured data</span>
+            <h3>KV-cache explorer</h3>
+            <p>Grow the context. Watch what a full cache costs against my attention-sink cache.</p>
+          </div>
+          <span className="ex-setup mono">Qwen3-0.6B · bf16 · RTX 4060 Laptop 8 GB · PG19</span>
+        </div>
+      )}
       <div className="ex-controls">
         <button
           type="button"
@@ -172,7 +182,7 @@ export function KVExplorer() {
             evicted
           </span>
           <span>
-            <i style={{ background: "color-mix(in srgb, var(--s1) 42%, transparent)" }} />
+            <i style={{ background: "repeating-linear-gradient(90deg, var(--s1) 0 2px, transparent 2px 4px)" }} />
             rolling window
           </span>
         </div>
