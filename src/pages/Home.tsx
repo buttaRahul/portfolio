@@ -4,7 +4,29 @@ import { CopyEmail } from "../components/CopyEmail";
 import { KVExplorer } from "../components/KVExplorer";
 import { RESUME_HREF, education, experience, proof, publication, site } from "../data/site";
 import { alsoBuilt, moreWork, work } from "../data/work";
+import type { CompactItem } from "../data/types";
 import { useReveal } from "../lib/hooks";
+
+function Compact({ items }: { items: CompactItem[] }) {
+  return (
+    <ul className="compact">
+      {items.map((it) => (
+        <li key={it.title} data-reveal>
+          <span className="c-meta">
+            {it.org} · {it.year}
+          </span>
+          <h3>{it.title}</h3>
+          <p>{it.text}</p>
+          {it.href && (
+            <a className="c-link" href={it.href} target="_blank" rel="noreferrer">
+              {it.linkLabel ?? "Link"} ↗
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 function SectionLabel({ n, children }: { n: string; children: string }) {
   return (
@@ -133,41 +155,12 @@ export function Home() {
           <h2 id="more-title" className="sr-only">
             More work
           </h2>
-          <ul className="rows">
-            {moreWork.map((it) => (
-              <li key={it.title} data-reveal>
-                <span className="r-title">
-                  {it.href ? (
-                    <a href={it.href} target="_blank" rel="noreferrer">
-                      {it.title} ↗
-                    </a>
-                  ) : (
-                    it.title
-                  )}
-                </span>
-                <span className="r-stat">{it.stat}</span>
-                <span className="r-meta mono">
-                  {it.org} · {it.year}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <div className="chips-row">
-            <span className="kicker">Also built</span>
-            <ul className="chips">
-              {alsoBuilt.map((it) => (
-                <li key={it.title}>
-                  {it.href ? (
-                    <a href={it.href} target="_blank" rel="noreferrer" title={it.text}>
-                      {it.title}
-                    </a>
-                  ) : (
-                    <span title={it.text}>{it.title}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
+          <Compact items={moreWork} />
+          <div className="subhead">
+            <h3>Also built</h3>
+            <p>LLM applications and agents</p>
           </div>
+          <Compact items={alsoBuilt} />
         </div>
       </section>
 
