@@ -2816,3 +2816,36 @@ body {
 code {
   background: rgb(3 4 8 / 0.6);
 }
+
+/* More work: each item its own card, like the project rows */
+.compact {
+  gap: 12px;
+}
+
+.compact li {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: var(--bg-raised);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  transition: border-color 0.2s, transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.compact li:has(a):hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.compact .c-meta {
+  color: var(--accent-text);
+}
+
+.compact .c-link {
+  margin-top: auto;
+  padding-top: 10px;
+  align-self: flex-start;
+}
