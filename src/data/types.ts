@@ -1,5 +1,4 @@
 export type FigId =
-  | "fraud-pipeline"
   | "fraud-rank"
   | "kv-explorer"
   | "kv-sink-count"

@@ -31,51 +31,6 @@ export function Figure({
   );
 }
 
-/* ---------------- Fraud: pipeline ---------------- */
-
-function FraudPipeline() {
-  const layers = [
-    ["CMS-policy rules", "billing that breaks coverage policy"],
-    ["Peer baselines", "deviation from similar suppliers"],
-    ["Anomaly ensemble", "Isolation Forest · ECOD · kNN"],
-    ["Graph referral features", "the referral network around a supplier"],
-    ["PU learning", "known fraud vs unlabeled, not vs clean"],
-  ];
-  return (
-    <div className="flow" role="img" aria-label="Claims and supplier data feed five independent signal layers, which combine into one supplier risk ranking; investigators review the top of the ranking.">
-      <div className="flow-node">
-        <span className="flow-k">Input</span>
-        <b>DME claims</b>
-        <span>6,500+ suppliers</span>
-      </div>
-      <div className="flow-arrow" aria-hidden="true" />
-      <ol className="flow-stack">
-        {layers.map(([t, s], i) => (
-          <li key={t}>
-            <span className="flow-idx">{i + 1}</span>
-            <span>
-              <b>{t}</b>
-              <span>{s}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
-      <div className="flow-arrow" aria-hidden="true" />
-      <div className="flow-node accent">
-        <span className="flow-k">Output</span>
-        <b>Supplier risk ranking</b>
-        <span>explainable per layer</span>
-      </div>
-      <div className="flow-arrow" aria-hidden="true" />
-      <div className="flow-node">
-        <span className="flow-k">Use</span>
-        <b>Review queue</b>
-        <span>top of the list</span>
-      </div>
-    </div>
-  );
-}
-
 /* ---------------- Fraud: where validation cases landed ---------------- */
 
 function FraudRank() {
@@ -177,9 +132,6 @@ export function renderFigure(id: FigId): ReactNode {
   switch (id) {
     case "kv-explorer":
       return <KVExplorer />;
-
-    case "fraud-pipeline":
-      return <FraudPipeline />;
 
     case "fraud-rank":
       return <FraudRank />;

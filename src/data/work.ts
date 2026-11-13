@@ -22,7 +22,7 @@ const fraud: Work = {
     { value: "5 / 5", label: "later fraud exclusions in the top 0.53%" },
     { value: "Top 3%", label: "held-out confirmed fraud; median rank 1" },
   ],
-  stack: ["Databricks", "Delta Lake", "Isolation Forest", "ECOD", "kNN", "PU learning", "Graph features", "Python"],
+  stack: ["Databricks", "Delta Lake", "Python"],
   sections: [
     {
       id: "problem",
@@ -62,24 +62,11 @@ const fraud: Work = {
       blocks: [
         {
           t: "p",
-          text: "Five layers on Databricks. Each one catches a kind of signal the others miss, and together they produce a single supplier-level risk ranking.",
+          text: "A supplier-level risk ranking on Databricks. It combines several independent kinds of signal, so no single one decides a flag, and every flag can be traced back to what raised it.",
         },
         {
-          t: "fig",
-          fig: "fraud-pipeline",
-          title: "Five signal layers, one ranking",
-          caption: "Abstract architecture. Each layer scores every supplier independently; the ranking combines them. No claims data is shown.",
-          wide: true,
-        },
-        {
-          t: "ol",
-          items: [
-            "**CMS-policy rules.** Billing that breaks coverage and documentation policy outright. High precision, and explainable on its own.",
-            "**Peer baselines.** Each supplier is compared with a peer group of similar suppliers, so normal variation in a specialty does not look anomalous.",
-            "**Anomaly ensemble.** Isolation Forest, ECOD and kNN distance. They fail in different ways (axis-aligned splits, per-feature tails, local density), so the ensemble is steadier than any one of them.",
-            "**Graph referral features.** Features from the referral network around each supplier, because schemes tend to share referrers.",
-            "**Positive-unlabeled learning.** Known fraud is treated as positive and everyone else as *unlabeled*, not negative, which is the correct assumption for this data.",
-          ],
+          t: "p",
+          text: "The specific signals and models are Zynix's, so they aren't described here. I'm happy to talk through the approach in conversation where I can.",
         },
       ],
     },
@@ -95,7 +82,7 @@ const fraud: Work = {
           t: "ul",
           items: [
             "**Future exclusions.** 5 suppliers were later excluded for fraud. All 5 were already in the system's **top 0.53%** risk tier.",
-            "**Held-out confirmed fraud.** Confirmed fraud suppliers kept out of PU training ranked in the **top 3%**, with a **median rank of 1**.",
+            "**Held-out confirmed fraud.** Confirmed fraud suppliers kept out of training ranked in the **top 3%**, with a **median rank of 1**.",
           ],
         },
         {

@@ -224,7 +224,7 @@ design, debugging distributed training. That is what senior screens check.
 
 | Order | Case | Kind | Employer detail |
 |---|---|---|---|
-| 1 | Fraud & waste detection without labels | Core ML | Method-level: the 5 layers, PU learning setup, how validation was designed. No supplier data. |
+| 1 | Fraud & waste detection without labels | Core ML | Problem, constraints, validation design and results only. Signals and models stay private (Zynix). No supplier data. |
 | 2 | Attention-sink KV cache | Systems / worklog | Fully public: README tables and figures |
 | 3 | Claims foundation model + multi-GPU LoRA | DL + systems | Engineering-level: the gradient-sync bug and how it was found, perplexity and CKD comparison. No data. |
 | 4 | Clinical risk + capacity thresholds | Core ML | Method-level: holdout design, threshold policy, outcome numbers |
@@ -244,7 +244,7 @@ limits**, stack, links. Lens-specific dek and metric order.
 
 | Case | Source of truth | Figure |
 |---|---|---|
-| Fraud & waste detection on DME claims | Resume + Rahul to confirm | 5-layer pipeline diagram; risk-tier ranking strip showing where the 5 later fraud exclusions fell |
+| Fraud & waste detection on DME claims | Resume | Risk-tier ranking strip showing where the 5 later fraud exclusions fell |
 | Clinical risk + capacity thresholds | Resume | Diagram: Youden cut-off vs capacity cut-off (1,600 → 300/wk, 2.4× precision) |
 | Attention-sink KV cache | Public README (real tables) | Memory and latency vs context, from the measured tables |
 | Fused residual-add + RMSNorm in Triton | Public README (real tables) | Bytes-moved bar (36 B vs 4 B per element); bandwidth vs eager/compile |
