@@ -73,10 +73,6 @@ const fraud: Work = {
             "**Calibration from reviews**: scores are calibrated using the outcomes of reviews of flagged suppliers.",
           ],
         },
-        {
-          t: "note",
-          text: "Exact signals, features and models are Zynix's and stay private.",
-        },
       ],
     },
     {
@@ -104,19 +100,6 @@ const fraud: Work = {
           title: "Where the known cases landed in the ranking",
           caption: "Percentile of the supplier ranking (0 = highest risk). Bands show where each validation set landed, as reported. Positions of individual suppliers are not shown.",
           wide: true,
-        },
-      ],
-    },
-    {
-      id: "limits",
-      title: "Limits",
-      blocks: [
-        {
-          t: "ul",
-          items: [
-            "Five exclusions is a small sample. It is strong evidence about the head of the ranking, not a precision estimate for the whole list.",
-            "Because unlabeled is not clean, precision further down the list stays unknown until investigators work through it.",
-          ],
         },
       ],
     },
