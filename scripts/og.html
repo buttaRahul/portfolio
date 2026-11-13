@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Source for public/og.png (1200×630). Regenerate with scripts/make-og.sh -->
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:1200px;height:630px;background:#f6f5f1;color:#121316;font-family:Geist,system-ui,sans-serif;overflow:hidden}
+  .field{position:absolute;inset:0}
+  .wrap{position:absolute;inset:0;padding:72px 80px;display:flex;flex-direction:column;justify-content:space-between}
+  .k{font:500 18px "Geist Mono",monospace;letter-spacing:.04em;text-transform:uppercase;color:#686b72}
+  h1{margin:18px 0 0;font-size:66px;line-height:1.02;letter-spacing:-.04em;font-weight:600;max-width:900px}
+  h1 span{color:#686b72}
+  .row{display:flex;gap:56px;border-top:1.5px solid #bfbdb5;padding-top:22px}
+  .row b{display:block;font-size:40px;letter-spacing:-.03em;font-weight:600}
+  .row i{display:block;font-style:normal;font-size:17px;color:#3f4248;max-width:300px;margin-top:4px;line-height:1.35}
+</style></head>
+<body>
+<svg class="field" width="1200" height="630" id="f"></svg>
+<div class="wrap">
+  <div>
+    <div class="k">Rahul Aditya Butta · Machine Learning Engineer</div>
+    <h1>I build ML that holds up in production, <span>and go down to the kernel.</span></h1>
+  </div>
+  <div class="row">
+    <div><b>5 of 5</b><i>later OIG exclusions already in the top 0.53% risk tier</i></div>
+    <div><b>+6.3%</b><i>perplexity vs full KV cache at constant memory</i></div>
+    <div><b>85–89%</b><i>of peak DRAM bandwidth, fused RMSNorm in Triton</i></div>
+  </div>
+</div>
+<script>
+  const s=document.getElementById('f'),ns='http://www.w3.org/2000/svg',q=[1085,330];let h='';
+  for(let y=15;y<630;y+=30)for(let x=15;x<1200;x+=30){const d=Math.hypot(x-q[0],y-q[1]);const f=Math.max(0,Math.min(1,(x-500)/500));const w=Math.exp(-(d*d)/(2*64*64));
+    if(w>0.05)h+=`<line x1="${q[0]}" y1="${q[1]}" x2="${x}" y2="${y}" stroke="#121316" stroke-opacity="${(w*0.5*f).toFixed(3)}"/>`;
+    h+=`<circle cx="${x}" cy="${y}" r="${(1.2+w*2.4).toFixed(2)}" fill="#121316" fill-opacity="${((0.18+w*0.6)*(0.15+0.85*f)).toFixed(3)}"/>`;}
+  [[15,15],[45,15],[75,15],[105,15]].forEach(([x,y])=>{h+=`<line x1="${q[0]}" y1="${q[1]}" x2="${x}" y2="${y}" stroke="#d9472b" stroke-opacity=".14"/><circle cx="${x}" cy="${y}" r="3.5" fill="#d9472b"/>`});
+  h+=`<circle cx="${q[0]}" cy="${q[1]}" r="10" fill="#d9472b" fill-opacity=".25"/><circle cx="${q[0]}" cy="${q[1]}" r="4" fill="#d9472b"/>`;
+  s.innerHTML=h;
+</script>
+</body></html>

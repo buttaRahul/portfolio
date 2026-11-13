@@ -1,13 +1,79 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rahul's Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Rahul Aditya Butta — Machine Learning Engineer</title>
+    <meta
+      name="description"
+      content="Machine learning engineer working across core ML, deep learning and ML systems: fraud and risk models on Medicare claims, LoRA training on multi-GPU nodes, Triton kernels and KV caches."
+    />
+    <link rel="canonical" href="%SITE_ORIGIN%/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Rahul Aditya Butta" />
+    <meta property="og:title" content="Rahul Aditya Butta — Machine Learning Engineer" />
+    <meta
+      property="og:description"
+      content="Core ML, deep learning and ML systems. Production models with checked outcomes; Triton kernels and KV caches with measured results."
+    />
+    <meta property="og:url" content="%SITE_ORIGIN%/" />
+    <meta property="og:image" content="%SITE_ORIGIN%/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#F6F5F1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rahul Aditya Butta",
+        "jobTitle": "Machine Learning Engineer",
+        "url": "%SITE_ORIGIN%/",
+        "email": "mailto:butta.rahul.aditya@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressCountry": "IN" },
+        "alumniOf": "Indian Institute of Information Technology, Pune",
+        "sameAs": [
+          "https://github.com/buttaRahul",
+          "https://www.linkedin.com/in/rahul-aditya/",
+          "https://www.kaggle.com/adityarahul"
+        ],
+        "knowsAbout": [
+          "Machine learning", "Deep learning", "Anomaly detection", "Positive-unlabeled learning",
+          "XGBoost", "PyTorch", "Triton", "KV cache", "Distributed training", "LoRA"
+        ]
+      }
+    </script>
+    <script>
+      // Pick the theme before first paint so the page never flashes the wrong one.
+      // Mirrors src/lib/theme.ts.
+      (function () {
+        var root = document.documentElement;
+        try {
+          var stored = localStorage.getItem("ra-theme");
+          if (stored === "light" || stored === "dark") { root.dataset.theme = stored; return; }
+        } catch (e) {}
+        var dark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        root.dataset.theme = dark ? "dark" : "light";
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <noscript>
+      <p style="padding:24px;font-family:system-ui">
+        Rahul Aditya Butta — Machine Learning Engineer.
+        <a href="/assets/resume/Rahul_Aditya_Butta_ML_Engineer.pdf">Resume (PDF)</a> ·
+        <a href="mailto:butta.rahul.aditya@gmail.com">butta.rahul.aditya@gmail.com</a>
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
