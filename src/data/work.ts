@@ -22,7 +22,7 @@ const fraud: Work = {
     { value: "5 / 5", label: "later fraud exclusions in the top 0.53%" },
     { value: "Top 3%", label: "held-out confirmed fraud; median rank 1" },
   ],
-  stack: ["Databricks", "Delta Lake", "Python"],
+  stack: ["Databricks", "Python", "Clustering", "PU learning", "Outlier detection"],
   sections: [
     {
       id: "problem",
@@ -62,11 +62,20 @@ const fraud: Work = {
       blocks: [
         {
           t: "p",
-          text: "A supplier-level risk ranking on Databricks. It combines several independent kinds of signal, so no single one decides a flag, and every flag can be traced back to what raised it.",
+          text: "A **multi-layer architecture** on Databricks that produces one supplier-level risk ranking. No single layer decides a flag, and every flag can be traced back to the layers that raised it.",
         },
         {
-          t: "p",
-          text: "The specific signals and models are Zynix's, so they aren't described here. I'm happy to talk through the approach in conversation where I can.",
+          t: "ul",
+          items: [
+            "**Clustering analysis** of supplier behaviour.",
+            "**Multivariate outlier detection** for suppliers whose overall pattern is unusual even when no single measure is.",
+            "**Positive-unlabeled (PU) learning**: known fraud is positive and everyone else is *unlabeled*, not negative, which is the right assumption for this data.",
+            "**Calibration from reviews**: scores are calibrated using the outcomes of reviews of flagged suppliers.",
+          ],
+        },
+        {
+          t: "note",
+          text: "Exact signals, features and models are Zynix's and stay private.",
         },
       ],
     },

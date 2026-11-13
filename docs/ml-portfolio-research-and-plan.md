@@ -224,7 +224,7 @@ design, debugging distributed training. That is what senior screens check.
 
 | Order | Case | Kind | Employer detail |
 |---|---|---|---|
-| 1 | Fraud & waste detection without labels | Core ML | Problem, constraints, validation design and results only. Signals and models stay private (Zynix). No supplier data. |
+| 1 | Fraud & waste detection without labels | Core ML | Multi-layer architecture at a high level (clustering, PU learning, multivariate outlier detection, calibration from reviews); exact signals and models stay private (Zynix). No supplier data. |
 | 2 | Attention-sink KV cache | Systems / worklog | Fully public: README tables and figures |
 | 3 | Claims foundation model + multi-GPU LoRA | DL + systems | Engineering-level: the gradient-sync bug and how it was found, perplexity and CKD comparison. No data. |
 | 4 | Clinical risk + capacity thresholds | Core ML | Method-level: holdout design, threshold policy, outcome numbers |
