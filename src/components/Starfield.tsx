@@ -12,7 +12,7 @@ export const HYPERSPACE_EVENT = "hyperspace";
 
 type Star = { x: number; y: number; z: number; pz: number; tint: number };
 
-const IDLE_SPEED = 0.022; // depth units per second: slow enough not to pull the eye
+const IDLE_SPEED = 0.03; // depth units per second: slow enough not to pull the eye
 const JUMP_SPEED = 1.6;
 const DEPTH = 1;
 
@@ -56,7 +56,7 @@ export function Starfield() {
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       // Sparse enough that body text stays easy to read on top.
-      const count = Math.round(Math.min(480, (w * h) / 3000));
+      const count = Math.round(Math.min(600, (w * h) / 2400));
       const wrap = document.querySelector(".wrap");
       const rect = wrap?.getBoundingClientRect();
       colL = rect ? rect.left : w * 0.12;
@@ -77,6 +77,8 @@ export function Starfield() {
 
     const draw = (dt: number) => {
       ctx.clearRect(0, 0, w, h);
+      // Near full strength over the hero; calmer once the reader is in the content.
+      const calmMin = window.scrollY < h * 0.6 ? 0.85 : 0.6;
       const streak = Math.min(1, Math.max(0, (speed - IDLE_SPEED) / (JUMP_SPEED - IDLE_SPEED)));
       for (const s of stars) {
         s.pz = s.z;
@@ -93,8 +95,8 @@ export function Starfield() {
         const near = 1 - s.z / DEPTH;
         // Dim stars that pass behind the text column, with soft 80px edges.
         const edge = Math.min(p.x - colL, colR - p.x);
-        const calm = edge <= 0 ? 1 : edge >= 80 ? 0.42 : 1 - (edge / 80) * 0.58;
-        const alpha = Math.min(0.7, 0.1 + near * 0.7) * calm;
+        const calm = edge <= 0 ? 1 : edge >= 80 ? calmMin : 1 - (edge / 80) * (1 - calmMin);
+        const alpha = Math.min(0.8, 0.12 + near * 0.85) * calm;
         const col = s.tint > 0.92 ? "170 200 255" : s.tint < 0.05 ? "255 205 190" : "255 255 255";
         if (streak > 0.04) {
           const q = project(s, Math.min(DEPTH, s.pz + streak * 0.08));
@@ -106,7 +108,7 @@ export function Starfield() {
           ctx.stroke();
         } else {
           ctx.fillStyle = `rgb(${col} / ${alpha})`;
-          const r = 0.35 + near * near * 1.05;
+          const r = 0.35 + near * near * 1.3;
           ctx.beginPath();
           ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
           ctx.fill();
