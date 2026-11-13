@@ -12,14 +12,14 @@ const fraud: Work = {
   period: "2025 – 26",
   area: "Core ML",
   title: "Finding fraud without trusting the labels",
-  short: "A fraud and waste ranking for 6,500+ medical-equipment suppliers, designed and built alone and checked against exclusions the HHS-OIG made later.",
-  dek: "A fraud and waste detection system for durable-medical-equipment claims across 6,500+ suppliers. I designed and built it alone, and checked it against exclusions the HHS-OIG made later.",
+  short: "A fraud and waste ranking for 6,500+ medical-equipment suppliers, designed and built alone and checked against fraud exclusions that came after it.",
+  dek: "A fraud and waste detection system for durable-medical-equipment claims across 6,500+ suppliers. I designed and built it alone, and checked it against fraud exclusions that came after it.",
   role: "Sole designer and builder",
-  metric: { value: "5 / 5", label: "later OIG exclusions already in the top 0.53% risk tier" },
-  checked: "Against HHS-OIG exclusions announced after scoring, and against held-out confirmed fraud suppliers",
+  metric: { value: "5 / 5", label: "later fraud exclusions already in the top 0.53% risk tier" },
+  checked: "Against fraud exclusions announced after scoring, and against held-out confirmed fraud suppliers",
   glance: [
     { value: "6,500+", label: "suppliers scored" },
-    { value: "5 / 5", label: "later OIG exclusions in the top 0.53%" },
+    { value: "5 / 5", label: "later fraud exclusions in the top 0.53%" },
     { value: "Top 3%", label: "held-out confirmed fraud; median rank 1" },
   ],
   stack: ["Databricks", "Delta Lake", "Isolation Forest", "ECOD", "kNN", "PU learning", "Graph features", "Python"],
@@ -94,7 +94,7 @@ const fraud: Work = {
         {
           t: "ul",
           items: [
-            "**Future exclusions.** The HHS-OIG later excluded 5 suppliers. All 5 were already in the system's **top 0.53%** risk tier.",
+            "**Future exclusions.** 5 suppliers were later excluded for fraud. All 5 were already in the system's **top 0.53%** risk tier.",
             "**Held-out confirmed fraud.** Confirmed fraud suppliers kept out of PU training ranked in the **top 3%**, with a **median rank of 1**.",
           ],
         },

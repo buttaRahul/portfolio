@@ -111,7 +111,7 @@ function FraudRank() {
         <li>
           <i className="b1" />
           <span>
-            <b>Top 0.53%</b>: all <b>5 of 5</b> suppliers the HHS-OIG excluded after the ranking was produced
+            <b>Top 0.53%</b>: all <b>5 of 5</b> suppliers later excluded for fraud, after the ranking was produced
           </span>
         </li>
         <li>
@@ -122,7 +122,7 @@ function FraudRank() {
         </li>
       </ul>
       <p className="sr-only">
-        All five suppliers later excluded by the HHS-OIG fell within the top 0.53% of the ranking. Held-out confirmed fraud suppliers fell within the top 3%, with median rank 1.
+        All five suppliers later excluded for fraud fell within the top 0.53% of the ranking. Held-out confirmed fraud suppliers fell within the top 3%, with median rank 1.
       </p>
     </div>
   );

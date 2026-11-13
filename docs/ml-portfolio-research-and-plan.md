@@ -144,7 +144,7 @@ aggregators are flagged where used.
 ### 3.1 What is rare about this profile
 
 1. **Production ML with outcomes checked externally.** The fraud system had no
-   labels; HHS-OIG later excluded 5 suppliers, and all 5 were already in its
+   labels; 5 suppliers were later excluded for fraud, and all 5 were already in its
    top 0.53% risk tier. Few candidates at any level can show an
    out-of-sample check like this. It should be the lead case.
 2. **Thresholds set by business constraints.** Replacing Youden cut-offs with
@@ -209,7 +209,7 @@ design, debugging distributed training. That is what senior screens check.
 ### 4.2 Homepage, top to bottom
 
 1. **Hero:** name, identity line, three proof metrics (*5 of 5 later
-   OIG exclusions already in the top 0.53%*, *perplexity within 6% of full
+   fraud exclusions already in the top 0.53%*, *perplexity within 6% of full
    cache at constant memory*, *85–89% of peak bandwidth*), **Resume** and
    **Email** buttons. Live "attention field" behind it.
 2. **Selected work:** 5 entries, each a summary row (problem, what I built,
@@ -244,7 +244,7 @@ limits**, stack, links. Lens-specific dek and metric order.
 
 | Case | Source of truth | Figure |
 |---|---|---|
-| Fraud & waste detection on DME claims | Resume + Rahul to confirm | 5-layer pipeline diagram; risk-tier ranking strip showing where the 5 OIG exclusions fell |
+| Fraud & waste detection on DME claims | Resume + Rahul to confirm | 5-layer pipeline diagram; risk-tier ranking strip showing where the 5 later fraud exclusions fell |
 | Clinical risk + capacity thresholds | Resume | Diagram: Youden cut-off vs capacity cut-off (1,600 → 300/wk, 2.4× precision) |
 | Attention-sink KV cache | Public README (real tables) | Memory and latency vs context, from the measured tables |
 | Fused residual-add + RMSNorm in Triton | Public README (real tables) | Bytes-moved bar (36 B vs 4 B per element); bandwidth vs eager/compile |
@@ -297,8 +297,8 @@ only the published endpoints (no invented curve).
 
 ### 4.6 Copy rules
 
-- Lead with the result, then the method. "All 5 suppliers the HHS-OIG later
-  excluded were already in the top 0.53%", not "Built an anomaly-detection
+- Lead with the result, then the method. "All 5 suppliers later excluded for fraud
+  were already in the top 0.53%", not "Built an anomaly-detection
   ensemble".
 - Every number traces to the resume or a README. Nothing rounded up.
 - First person, plain, short. No "passionate", no "cutting-edge".

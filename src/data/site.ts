@@ -28,7 +28,7 @@ export type ProofMetric = {
 export const proof: ProofMetric[] = [
   {
     value: "5 of 5",
-    label: "later HHS-OIG fraud exclusions were already in my model's top 0.53%",
+    label: "suppliers later excluded for fraud were already in my model's top 0.53%",
     slug: "fraud-detection-without-labels",
   },
   {
